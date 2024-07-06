@@ -1,4 +1,4 @@
-import 'package:live_score/models/result_model.dart';
+import 'package:live_score/models/match_model.dart';
 import 'package:live_score/services/api_constant.dart';
 import 'package:live_score/services/api_utils.dart';
 import 'package:live_score/utils/custom_exception.dart';

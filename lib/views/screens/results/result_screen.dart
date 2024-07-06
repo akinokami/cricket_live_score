@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/result_controller.dart';
+import 'package:live_score/utils/app_theme.dart';
+import 'package:live_score/views/widgets/custom_text.dart';
 import 'package:live_score/views/widgets/match_card_widget.dart';
 
 class ResultScreen extends StatelessWidget {
@@ -11,7 +13,13 @@ class ResultScreen extends StatelessWidget {
     final resultController = Get.put(ResultController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Results'),
+        backgroundColor: AppTheme.mainColor,
+        title: const CustomText(
+          text: 'Results',
+          size: 16,
+          fontWeight: FontWeight.w500,
+          textColor: Colors.white,
+        ),
         centerTitle: true,
       ),
       body: Padding(

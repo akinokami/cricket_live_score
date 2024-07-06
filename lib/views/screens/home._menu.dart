@@ -37,7 +37,7 @@ class Home extends StatelessWidget {
                 icon: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: const Icon(
-                    Icons.home,
+                    Icons.view_timeline_outlined,
                     size: 20.0,
                   ),
                 ),
@@ -48,7 +48,7 @@ class Home extends StatelessWidget {
                 icon: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: const Icon(
-                    Icons.calendar_month,
+                    Icons.calendar_month_outlined,
                     size: 20.0,
                   ),
                 ),
@@ -59,7 +59,7 @@ class Home extends StatelessWidget {
                 icon: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: const Icon(
-                    Icons.location_history,
+                    Icons.history,
                     size: 20.0,
                   ),
                 ),
@@ -70,7 +70,7 @@ class Home extends StatelessWidget {
                 icon: Container(
                   margin: const EdgeInsets.only(bottom: 7),
                   child: const Icon(
-                    Icons.settings,
+                    Icons.newspaper_outlined,
                     size: 20.0,
                   ),
                 ),

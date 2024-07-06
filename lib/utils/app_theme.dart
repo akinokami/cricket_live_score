@@ -36,4 +36,5 @@ class AppTheme {
   static const greyTicket = Color(0xFFDBDBDB);
   static const iconBlack = Color(0xFF000000);
   static const iconGrey = Color(0xFFB6B6B6);
+  static const mainColor = const Color.fromRGBO(36, 54, 101, 1.0);
 }

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:live_score/models/result_model.dart';
+import 'package:live_score/models/match_model.dart';
 import 'package:live_score/services/api_repo.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/utils/constants.dart';

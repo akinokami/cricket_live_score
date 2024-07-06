@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:live_score/models/result_model.dart';
+import 'package:live_score/models/match_model.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 
 class MatchCardWidget extends StatelessWidget {

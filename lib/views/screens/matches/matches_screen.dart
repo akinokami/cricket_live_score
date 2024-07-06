@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/match_controller.dart';
+import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 import 'package:live_score/views/widgets/match_card_widget.dart';
 
@@ -12,7 +13,13 @@ class MatchesScreen extends StatelessWidget {
     final matchController = Get.put(MatchController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text(''),
+        backgroundColor: AppTheme.mainColor,
+        title: const CustomText(
+          text: 'Matches',
+          size: 16,
+          fontWeight: FontWeight.w500,
+          textColor: Colors.white,
+        ),
         centerTitle: true,
       ),
       body: Padding(
