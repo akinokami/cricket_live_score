@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/utils/app_theme.dart';
@@ -108,7 +107,7 @@ class NewsScreen extends StatelessWidget {
                       padding: const EdgeInsets.only(bottom: 10),
                       child: InkWell(
                         onTap: () {
-                          Get.to(() => NewsDetailScreen());
+                          Get.to(() => const NewsDetailScreen());
                         },
                         child: Card(
                             elevation: 5,

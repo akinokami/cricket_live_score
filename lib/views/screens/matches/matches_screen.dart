@@ -28,6 +28,7 @@ class MatchesScreen extends StatelessWidget {
         children: [
           Obx(
             () => SizedBox(
+              height: 215,
               child: CarouselSlider(
                   options: CarouselOptions(
                       aspectRatio: 1.6,
@@ -40,11 +41,8 @@ class MatchesScreen extends StatelessWidget {
                   items: matchController.overviewList.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
-                        return Container(
+                        return SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          //decoration: BoxDecoration(border: Border.all(color: Colors.black, width: 1)),
-                          //margin: const EdgeInsets.symmetric(horizontal: 5.0),
-
                           child: MatchCardWidget(
                             matchModel: i,
                             status: 'Finished',
@@ -55,42 +53,25 @@ class MatchesScreen extends StatelessWidget {
                   }).toList()),
             ),
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: matchController.overviewList.asMap().entries.map((entry) {
-          //     return GestureDetector(
-          //       onTap: () =>
-          //           matchController.controller.animateToPage(entry.key),
-          //       child: Container(
-          //         width: 12.0,
-          //         height: 12.0,
-          //         margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-          //         decoration: BoxDecoration(
-          //             shape: BoxShape.circle,
-          //             color: (Theme.of(context).brightness == Brightness.dark
-          //                     ? Colors.white
-          //                     : Colors.black)
-          //                 .withOpacity(
-          //                     matchController.current.value == entry.key
-          //                         ? 0.9
-          //                         : 0.4)),
-          //       ),
-          //     );
-          //   }).toList(),
-          // ),
-          SizedBox(
-            height: 20,
-          ),
-          Center(
-              child: CustomText(
-            text: 'Overview',
-            size: 16,
-            fontWeight: FontWeight.w500,
-            textColor: AppTheme.mainColor,
-          )),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
+
+
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              color: AppTheme.mainColor.withOpacity(0.8),
+              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+              child: const CustomText(
+                text: 'Overview',
+                size: 16,
+                fontWeight: FontWeight.w500,
+                textColor: AppTheme.white,
+              ),
+            ),
+          ),
+
           Obx(
             () => matchController.isLoading.value
                 ? const Center(

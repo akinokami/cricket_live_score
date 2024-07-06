@@ -162,14 +162,14 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                         ],
                       ),
                     ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   if (selectedIndex == 0)
                     Container(
                       color: AppTheme.mainColor,
                       padding: const EdgeInsets.all(10.0),
-                      child: Row(
+                      child: const Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Text(
@@ -229,7 +229,7 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                   ? Colors.white
                                   : Colors.grey[200],
                               padding: const EdgeInsets.all(10.0),
-                              child: Row(
+                              child: const Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
