@@ -1,4 +1,5 @@
 import 'package:live_score/models/match_model.dart';
+import 'package:live_score/models/player_model.dart';
 import 'package:live_score/services/api_constant.dart';
 import 'package:live_score/services/api_utils.dart';
 import 'package:live_score/utils/custom_exception.dart';
@@ -38,6 +39,45 @@ class ApiRepo {
       );
       final resultList = response.data['AllMatch'] as List;
       return resultList.map((item) => MatchModel.fromJson(item)).toList();
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
+
+  Future<List<PlayerModel>> getScore(String matchId) async {
+    try {
+      final response = await apiUtils.post(
+        url: "${ApiConstant.baseUrl}GetAllPlayers",
+        data: {"MatchId": matchId},
+      );
+      final resultList = response.data['Playerslist'] as List;
+      return resultList.map((item) => PlayerModel.fromJson(item)).toList();
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
+
+  Future<List<PlayerModel>> getOdd(String matchId) async {
+    try {
+      final response = await apiUtils.post(
+        url: "${ApiConstant.baseUrl}MatchOdds",
+        data: {"MatchId": matchId},
+      );
+      final resultList = response.data['Matchst'] as List;
+      return resultList.map((item) => PlayerModel.fromJson(item)).toList();
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
+
+  Future<List<PlayerModel>> getSummary(String matchId) async {
+    try {
+      final response = await apiUtils.post(
+        url: "${ApiConstant.baseUrl}MatchStats",
+        data: {"MatchId": matchId},
+      );
+      final resultList = response.data['Matchst'] as List;
+      return resultList.map((item) => PlayerModel.fromJson(item)).toList();
     } catch (e) {
       throw CustomException(e.toString());
     }
