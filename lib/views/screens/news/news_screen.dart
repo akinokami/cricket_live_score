@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:live_score/utils/app_theme.dart';
+import 'package:live_score/views/screens/news/news_detail_screen.dart';
 
 import '../../widgets/custom_text.dart';
 
@@ -104,72 +106,80 @@ class NewsScreen extends StatelessWidget {
                   itemBuilder: (BuildContext context, int index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: Card(
-                          elevation: 5,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                    'https://picsum.photos/250?image=9',
-                                    fit: BoxFit.cover,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.2,
-                                    height:
-                                        MediaQuery.of(context).size.width * 0.2,
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => NewsDetailScreen());
+                        },
+                        child: Card(
+                            elevation: 5,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      'https://picsum.photos/250?image=9',
+                                      fit: BoxFit.cover,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.2,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.2,
+                                    ),
                                   ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                SizedBox(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.65,
-                                    child: const Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                            textAlign: TextAlign.left,
-                                            "Facebook secures exclusive rights to La Liga in India",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.blueGrey,
-                                            )),
-                                        Text(
-                                            textAlign: TextAlign.left,
-                                            "Facebook secures exclusive rights to La Liga in India",
-                                            style: TextStyle(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.normal,
-                                              color: Colors.blueGrey,
-                                            )),
-                                        SizedBox(
-                                          height: 5,
-                                        ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Text("2024 - July - 06",
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.normal,
-                                                  color: Colors.blueGrey,
-                                                )),
-                                          ],
-                                        )
-                                      ],
-                                    )),
-                              ],
-                            ),
-                          )),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.65,
+                                      child: const Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                              textAlign: TextAlign.left,
+                                              "Facebook secures exclusive rights to La Liga in India",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.blueGrey,
+                                              )),
+                                          Text(
+                                              textAlign: TextAlign.left,
+                                              "Facebook secures exclusive rights to La Liga in India",
+                                              style: TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.normal,
+                                                color: Colors.blueGrey,
+                                              )),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Text("2024 - July - 06",
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontWeight:
+                                                        FontWeight.normal,
+                                                    color: Colors.blueGrey,
+                                                  )),
+                                            ],
+                                          )
+                                        ],
+                                      )),
+                                ],
+                              ),
+                            )),
+                      ),
                     );
                   },
                 ),

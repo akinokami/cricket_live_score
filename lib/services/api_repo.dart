@@ -1,3 +1,4 @@
+import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/models/match_model.dart';
 import 'package:live_score/models/player_model.dart';
 import 'package:live_score/services/api_constant.dart';
@@ -15,6 +16,18 @@ class ApiRepo {
       );
       final resultList = response.data['AllMatch'] as List;
       return resultList.map((item) => MatchModel.fromJson(item)).toList();
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
+
+  Future<List<LiveMatchModel>> getLiveList() async {
+    try {
+      final response = await apiUtils.get(
+        url: "${ApiConstant.baseUrl}LiveLine",
+      );
+      final resultList = response.data as List;
+      return resultList.map((item) => LiveMatchModel.fromJson(item)).toList();
     } catch (e) {
       throw CustomException(e.toString());
     }
