@@ -8,6 +8,7 @@ class MatchController extends GetxController {
   final isLoading = false.obs;
 
   final RxList<MatchModel> overviewList = <MatchModel>[].obs;
+  final current = 0.obs;
 
   @override
   void onInit() async {

@@ -23,7 +23,7 @@ class UpcomingScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.all(2.0),
         child: Obx(
           () => upcomingController.isLoading.value
               ? const Center(
