@@ -24,7 +24,7 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
     ChipModel(title: 'Stats', icon: Icons.sports_baseball_sharp),
   ];
 
-  int? selectedIndex;
+  int? selectedIndex=0;
   int selectedIndex2 = 0;
 
   @override

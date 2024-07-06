@@ -97,7 +97,8 @@ class NewsScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              Expanded(
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: 10,
