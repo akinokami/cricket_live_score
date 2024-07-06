@@ -6,11 +6,11 @@ import 'package:live_score/utils/custom_exception.dart';
 class ApiRepo {
   final ApiUtils apiUtils = ApiUtils();
 
-  Future<List<MatchModel>> getResultList() async {
+  Future<List<MatchModel>> getOverviewList() async {
     try {
       final response = await apiUtils.post(
         url: "${ApiConstant.baseUrl}MatchResults",
-        data: {"start": "1", "end": "15"},
+        data: {"start": "1", "end": "10"},
       );
       final resultList = response.data['AllMatch'] as List;
       return resultList.map((item) => MatchModel.fromJson(item)).toList();
@@ -23,6 +23,19 @@ class ApiRepo {
     try {
       final response =
           await apiUtils.get(url: "${ApiConstant.baseUrl}upcomingMatches");
+      final resultList = response.data['AllMatch'] as List;
+      return resultList.map((item) => MatchModel.fromJson(item)).toList();
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
+
+  Future<List<MatchModel>> getResultList() async {
+    try {
+      final response = await apiUtils.post(
+        url: "${ApiConstant.baseUrl}MatchResults",
+        data: {"start": "1", "end": "15"},
+      );
       final resultList = response.data['AllMatch'] as List;
       return resultList.map((item) => MatchModel.fromJson(item)).toList();
     } catch (e) {

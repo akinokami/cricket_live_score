@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/home_controller.dart';
-import 'package:live_score/views/screens/matches/matches_scren.dart';
+import 'package:live_score/views/screens/matches/matches_screen.dart';
 import 'package:live_score/views/screens/news/news_screen.dart';
 import 'package:live_score/views/screens/results/result_screen.dart';
 import 'package:live_score/views/screens/upcoming/upcoming_screen.dart';
@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
       body: Obx(() => IndexedStack(
             index: homeController.tabIndex.value,
             children: const [
-              MatchesScren(),
+              MatchesScreen(),
               UpcomingScreen(),
               ResultScreen(),
               NewsScreen(),
