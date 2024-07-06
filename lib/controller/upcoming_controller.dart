@@ -4,15 +4,15 @@ import 'package:live_score/services/api_repo.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/utils/constants.dart';
 
-class ResultController extends GetxController {
+class UpcomingController extends GetxController {
   final isLoading = false.obs;
 
-  final RxList<MatchModel> resultList = <MatchModel>[].obs;
+  final RxList<MatchModel> upcomingList = <MatchModel>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
-    await getResultList();
+    await getUpcomingList();
   }
 
   @override
@@ -25,11 +25,11 @@ class ResultController extends GetxController {
     //
   }
 
-  Future<void> getResultList() async {
+  Future<void> getUpcomingList() async {
     isLoading.value = true;
     try {
-      final result = await ApiRepo().getResultList();
-      resultList.value = result;
+      final result = await ApiRepo().getUpcomihngList();
+      upcomingList.value = result;
     } catch (e) {
       isLoading.value = false;
       constants.showSnackBar(

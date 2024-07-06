@@ -1,4 +1,4 @@
-class ResultModel {
+class MatchModel {
   String? title;
   String? matchtime;
   String? venue;
@@ -11,7 +11,7 @@ class ResultModel {
   String? result;
   String? imageUrl;
 
-  ResultModel(
+  MatchModel(
       {this.title,
       this.matchtime,
       this.venue,
@@ -24,7 +24,7 @@ class ResultModel {
       this.result,
       this.imageUrl});
 
-  ResultModel.fromJson(Map<String, dynamic> json) {
+  MatchModel.fromJson(Map<String, dynamic> json) {
     title = json['Title'];
     matchtime = json['Matchtime'];
     venue = json['Venue'];
