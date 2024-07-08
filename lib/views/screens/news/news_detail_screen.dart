@@ -30,9 +30,14 @@ class NewsDetailScreen extends StatelessWidget {
               child: Image.network(
                 newsModel?.urlToImage ??
                     'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
                 width: double.infinity,
                 height: MediaQuery.of(context).size.width * 0.6,
+                errorBuilder: (context, error, stackTrace) {
+                  return Image.network("https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg", fit: BoxFit.fill,
+                    width: double.infinity,
+                    height: MediaQuery.of(context).size.width * 0.6,);
+                }
               ),
             ),
             const SizedBox(
