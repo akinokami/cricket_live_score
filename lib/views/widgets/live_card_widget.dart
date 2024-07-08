@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/models/live_match_model.dart';
+import 'package:live_score/views/screens/matches/live_details_screen.dart';
 import 'package:live_score/views/screens/results/result_details_screen.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 
@@ -13,8 +14,14 @@ class LiveCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => ResultDetailsScreen(),
-            arguments: {'matchId': liveMatchModel?.matchId});
+        if (status == 'Live') {
+          Get.to(() => LiveDetailsScreen(), arguments: {
+            'title': liveMatchModel?.title,
+            'teamA': liveMatchModel?.teamA,
+            'teamB': liveMatchModel?.teamB,
+            'matchId': liveMatchModel?.matchId
+          });
+        }
       },
       child: Card(
         color: Colors.white,
