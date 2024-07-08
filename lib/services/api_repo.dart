@@ -1,3 +1,4 @@
+import 'package:live_score/models/live_line_match_model.dart';
 import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/models/match_model.dart';
 import 'package:live_score/models/news_model.dart';
@@ -53,8 +54,23 @@ class ApiRepo {
         url: "${ApiConstant.baseUrl}MatchResults",
         data: {"start": "1", "end": "15"},
       );
-      final resultList = response.data['AllMatch'] as List;
+      final resultList = response.data as List;
       return resultList.map((item) => MatchModel.fromJson(item)).toList();
+    } catch (e) {
+      throw CustomException(e.toString());
+    }
+  }
+
+  Future<List<LiveLineMatchModel>> getLiveLine(String matchId) async {
+    try {
+      final response = await apiUtils.post(
+        url: "${ApiConstant.baseUrl}LiveLine_Match",
+        data: {"MatchId": matchId},
+      );
+      final resultList = response.data as List;
+      return resultList
+          .map((item) => LiveLineMatchModel.fromJson(item))
+          .toList();
     } catch (e) {
       throw CustomException(e.toString());
     }

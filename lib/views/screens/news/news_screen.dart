@@ -53,62 +53,71 @@ class NewsScreen extends StatelessWidget {
                             itemCount: 5,
                             scrollDirection: Axis.horizontal,
                             itemBuilder: (BuildContext context, int index) {
-                              return Stack(children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10),
-                                  child: Material(
-                                    elevation: 2,
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: ClipRRect(
+                              return InkWell(
+                                onTap: () => Get.to(() => NewsDetailScreen(
+                                      newsModel: newsController.newsList[
+                                          newsController.random + index],
+                                    )),
+                                child: Stack(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: Material(
+                                      elevation: 2,
                                       borderRadius: BorderRadius.circular(10),
-                                      child: Image.network(
-                                        fit: BoxFit.cover,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          fit: BoxFit.cover,
+                                          newsController
+                                                  .newsList[
+                                                      newsController.random +
+                                                          index]
+                                                  .urlToImage ??
+                                              'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.32,
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.2,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Positioned(
+                                    bottom: 20,
+                                    left: 5,
+                                    right: 10,
+                                    child: Text(
                                         newsController
                                                 .newsList[
                                                     newsController.random +
                                                         index]
-                                                .urlToImage ??
-                                            'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.32,
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                0.2,
-                                      ),
-                                    ),
+                                                .title ??
+                                            '',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.white,
+                                        )),
                                   ),
-                                ),
-                                Positioned(
-                                  bottom: 20,
-                                  left: 5,
-                                  right: 10,
-                                  child: Text(
-                                      newsController
-                                              .newsList[
-                                                  newsController.random + index]
-                                              .title ??
-                                          '',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white,
-                                      )),
-                                ),
-                                Positioned(
-                                  bottom: 10,
-                                  right: 5,
-                                  child: Text(
-                                      newsController
-                                              .newsList[index].publishedAt ??
-                                          '',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.normal,
-                                        color: Colors.white,
-                                      )),
-                                )
-                              ]);
+                                  Positioned(
+                                    bottom: 10,
+                                    right: 5,
+                                    child: Text(
+                                        newsController
+                                                .newsList[index].publishedAt ??
+                                            '',
+                                        style: TextStyle(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.normal,
+                                          color: Colors.white,
+                                        )),
+                                  )
+                                ]),
+                              );
                             },
                           ),
                         ),
@@ -167,9 +176,9 @@ class NewsScreen extends StatelessWidget {
                                               return Image.network(
                                                 "https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg",
                                                 fit: BoxFit.fill,
-                                                width:  MediaQuery.of(context)
-                                                    .size
-                                                    .width *
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
                                                     0.2,
                                                 height: MediaQuery.of(context)
                                                         .size

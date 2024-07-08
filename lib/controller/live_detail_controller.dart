@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:live_score/models/live_line_match_model.dart';
 import 'package:live_score/models/odd_model.dart';
 import 'package:live_score/models/player_model.dart';
 import 'package:live_score/models/summary_model.dart';
@@ -8,6 +9,8 @@ import 'package:live_score/utils/constants.dart';
 
 class LiveDetailController extends GetxController {
   final isLoading = false.obs;
+
+  final RxList<LiveLineMatchModel> liveLineList = <LiveLineMatchModel>[].obs;
 
   final RxList<PlayerModel> scoreList = <PlayerModel>[].obs;
   final RxList<PlayerModel> filterScoreList = <PlayerModel>[].obs;
@@ -31,7 +34,7 @@ class LiveDetailController extends GetxController {
     teamA.value = Get.arguments['teamA'].toString();
     teamB.value = Get.arguments['teamB'].toString();
     teamList.value = [teamA.value, teamB.value];
-
+    await getLiveLine();
     await getScore();
     await getOdd();
     await getSummary();
@@ -45,6 +48,20 @@ class LiveDetailController extends GetxController {
   @override
   void onClose() {
     //
+  }
+
+  Future<void> getLiveLine() async {
+    isLoading.value = true;
+    try {
+      final result = await ApiRepo().getLiveLine(matchId.value);
+      liveLineList.value = result;
+    } catch (e) {
+      isLoading.value = false;
+      constants.showSnackBar(
+          title: 'Error', msg: e.toString(), textColor: AppTheme.red);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> getScore() async {

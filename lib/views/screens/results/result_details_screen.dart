@@ -197,12 +197,13 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                             Container(
                               color: AppTheme.mainColor,
                               padding: const EdgeInsets.all(10.0),
-                              child:  Row(
+                              child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   SizedBox(
-                                    width:MediaQuery.of(context).size.width * 0.3,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
                                     child: Text(
                                       "Batsman",
                                       style: TextStyle(
@@ -267,7 +268,10 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         SizedBox(
-                                          width:MediaQuery.of(context).size.width * 0.3,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
                                           child: Row(
                                             children: [
                                               CircleAvatar(
@@ -286,13 +290,15 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                                 width: 80,
                                                 child: Text(
                                                   matchDetailController
-                                                          .filterScoreList[index]
+                                                          .filterScoreList[
+                                                              index]
                                                           .playerName ??
                                                       '',
                                                   style: TextStyle(
                                                       color: AppTheme.mainColor,
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight.w500),
+                                                      fontWeight:
+                                                          FontWeight.w500),
                                                 ),
                                               ),
                                             ],
@@ -336,8 +342,23 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                         ),
                                         Text(
                                           matchDetailController
-                                              .filterScoreList[index].runs
-                                              .toString(),
+                                                      .filterScoreList[index]
+                                                      .balls !=
+                                                  0
+                                              ? (num.parse(matchDetailController
+                                                          .filterScoreList[
+                                                              index]
+                                                          .runs
+                                                          .toString()) /
+                                                      num.parse(
+                                                          matchDetailController
+                                                              .filterScoreList[
+                                                                  index]
+                                                              .balls
+                                                              .toString()) *
+                                                      100)
+                                                  .toStringAsFixed(1)
+                                              : '0.0',
                                           style: TextStyle(
                                               color: AppTheme.mainColor,
                                               fontSize: 12,
