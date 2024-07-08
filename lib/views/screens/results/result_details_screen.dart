@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/match_detail_controller.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
@@ -196,16 +197,19 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                             Container(
                               color: AppTheme.mainColor,
                               padding: const EdgeInsets.all(10.0),
-                              child: const Row(
+                              child:  Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    "Batsman",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:MediaQuery.of(context).size.width * 0.3,
+                                    child: Text(
+                                      "Batsman",
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                   Text(
                                     "R",
@@ -262,31 +266,37 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                                radius: 10,
-                                                backgroundColor:
-                                                    AppTheme.mainColor,
-                                                child: Icon(
-                                                  Icons.person,
-                                                  color: Colors.white,
-                                                  size: 15,
-                                                )),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              matchDetailController
-                                                      .filterScoreList[index]
-                                                      .playerName ??
-                                                  '',
-                                              style: TextStyle(
-                                                  color: AppTheme.mainColor,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ],
+                                        SizedBox(
+                                          width:MediaQuery.of(context).size.width * 0.3,
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                  radius: 10,
+                                                  backgroundColor:
+                                                      AppTheme.mainColor,
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  )),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              SizedBox(
+                                                width: 80,
+                                                child: Text(
+                                                  matchDetailController
+                                                          .filterScoreList[index]
+                                                          .playerName ??
+                                                      '',
+                                                  style: TextStyle(
+                                                      color: AppTheme.mainColor,
+                                                      fontSize: 12,
+                                                      fontWeight: FontWeight.w500),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                         Text(
                                           matchDetailController
