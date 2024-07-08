@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:live_score/models/news_model.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 
 class NewsDetailScreen extends StatelessWidget {
-  const NewsDetailScreen({super.key});
+  final NewsModel? newsModel;
+  const NewsDetailScreen({super.key, this.newsModel});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,8 @@ class NewsDetailScreen extends StatelessWidget {
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                'https://picsum.photos/250?image=9',
+                newsModel?.urlToImage ??
+                    'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
                 fit: BoxFit.cover,
                 width: double.infinity,
                 height: MediaQuery.of(context).size.width * 0.6,
@@ -35,9 +38,8 @@ class NewsDetailScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            const CustomText(
-              text:
-                  'Ther sdfjklsfjdsfk klsdjfklsf klsdfj kl  skljf lksdfkj  lkjsdfl akls;f jsdf jsdlfk jsdf sdf sdf sdf s sdf  sdf sfd sfd sdf sf ds sf dsffdfdfds  sdf sdfsdf df sdf ',
+            CustomText(
+              text: newsModel?.content ?? '',
               maxLines: 15,
             ),
           ],

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/views/screens/matches/live_details_screen.dart';
-import 'package:live_score/views/screens/results/result_details_screen.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 
 class LiveCardWidget extends StatelessWidget {

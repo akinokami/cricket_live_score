@@ -25,11 +25,12 @@ class MatchesScreen extends StatelessWidget {
         ),
         centerTitle: true,
       ),
-      body: ListView(
+      body: Column(
         children: [
           Obx(
             () => SizedBox(
               height: 215,
+              width: double.infinity,
               child: CarouselSlider(
                   options: CarouselOptions(
                       aspectRatio: 1.6,
@@ -63,6 +64,7 @@ class MatchesScreen extends StatelessWidget {
               color: AppTheme.mainColor.withOpacity(0.8),
               padding:
                   const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+              width: double.infinity,
               child: const CustomText(
                 text: 'Overview',
                 size: 16,
@@ -76,19 +78,19 @@ class MatchesScreen extends StatelessWidget {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : Container(
-                    height: MediaQuery.of(context).size.height * 0.5,
-                  child: ListView.builder(
-                    scrollDirection: Axis.vertical,
-                    itemCount: matchController.overviewList.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return MatchCardWidget(
-                        matchModel: matchController.overviewList[index],
-                        status: 'Finished',
-                      );
-                    },
+                : Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: matchController.overviewList.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return MatchCardWidget(
+                          matchModel: matchController.overviewList[index],
+                          status: 'Finished',
+                        );
+                      },
+                    ),
                   ),
-                ),
           ),
         ],
       ),
