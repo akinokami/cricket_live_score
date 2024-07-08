@@ -1,6 +1,8 @@
 import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/models/match_model.dart';
+import 'package:live_score/models/odd_model.dart';
 import 'package:live_score/models/player_model.dart';
+import 'package:live_score/models/summary_model.dart';
 import 'package:live_score/services/api_constant.dart';
 import 'package:live_score/services/api_utils.dart';
 import 'package:live_score/utils/custom_exception.dart';
@@ -70,27 +72,27 @@ class ApiRepo {
     }
   }
 
-  Future<List<PlayerModel>> getOdd(String matchId) async {
+  Future<List<OddModel>> getOdd(String matchId) async {
     try {
       final response = await apiUtils.post(
         url: "${ApiConstant.baseUrl}MatchOdds",
         data: {"MatchId": matchId},
       );
       final resultList = response.data['Matchst'] as List;
-      return resultList.map((item) => PlayerModel.fromJson(item)).toList();
+      return resultList.map((item) => OddModel.fromJson(item)).toList();
     } catch (e) {
       throw CustomException(e.toString());
     }
   }
 
-  Future<List<PlayerModel>> getSummary(String matchId) async {
+  Future<List<SummaryModel>> getSummary(String matchId) async {
     try {
       final response = await apiUtils.post(
         url: "${ApiConstant.baseUrl}MatchStats",
         data: {"MatchId": matchId},
       );
       final resultList = response.data['Matchst'] as List;
-      return resultList.map((item) => PlayerModel.fromJson(item)).toList();
+      return resultList.map((item) => SummaryModel.fromJson(item)).toList();
     } catch (e) {
       throw CustomException(e.toString());
     }

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class OddModel {
   String? score;
   String? sessionA;
@@ -42,7 +44,14 @@ class OddModel {
     mrateB = json['MrateB'];
     favourite = json['favourite'];
     isfirstinning = json['isfirstinning'];
-    subdate = json['subdate'];
+    if (json['subdate'] != null) {
+      DateTime dateTime =
+          DateFormat("MM-dd-yyyy HH:mm:ss").parse(json['subdate'].toString());
+      String formattedTime = DateFormat("HH:mm").format(dateTime);
+      subdate = formattedTime;
+    } else {
+      subdate = json['subdate'];
+    }
     teamruns = json['Teamruns'];
     id = json['id'];
   }

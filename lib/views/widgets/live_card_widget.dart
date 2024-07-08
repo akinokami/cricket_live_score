@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:live_score/models/match_model.dart';
+import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/views/screens/results/result_details_screen.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 
-class MatchCardWidget extends StatelessWidget {
-  final MatchModel? matchModel;
-
+class LiveCardWidget extends StatelessWidget {
+  final LiveMatchModel? liveMatchModel;
   final String? status;
-  const MatchCardWidget({super.key, this.matchModel, this.status});
+  const LiveCardWidget({super.key, this.liveMatchModel, this.status});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (status == 'Finished') {
-          Get.to(() => ResultDetailsScreen(), arguments: {
-            'title': matchModel?.title,
-            'teamA': matchModel?.teamA,
-            'teamB': matchModel?.teamB,
-            'matchId': matchModel?.matchId
-          });
-        }
+        Get.to(() => ResultDetailsScreen(),
+            arguments: {'matchId': liveMatchModel?.matchId});
       },
       child: Card(
         color: Colors.white,
@@ -39,7 +32,7 @@ class MatchCardWidget extends StatelessWidget {
             children: [
               CustomText(
                 fontWeight: FontWeight.w500,
-                text: matchModel?.title ?? '',
+                text: liveMatchModel?.title ?? '',
               ),
               const SizedBox(
                 height: 10,
@@ -54,7 +47,7 @@ class MatchCardWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            "${matchModel?.imageUrl}${matchModel?.teamAImage}",
+                            "${liveMatchModel?.imgeURL}${liveMatchModel?.teamAImage}",
                             width: 30,
                             height: 30,
                           ),
@@ -62,7 +55,7 @@ class MatchCardWidget extends StatelessWidget {
                         Opacity(
                           opacity: 0.5,
                           child: CustomText(
-                              size: 12, text: matchModel?.teamA ?? ''),
+                              size: 12, text: liveMatchModel?.teamA ?? ''),
                         ),
                       ],
                     ),
@@ -87,7 +80,7 @@ class MatchCardWidget extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
                           child: Image.network(
-                            "${matchModel?.imageUrl}${matchModel?.teamBImage}",
+                            "${liveMatchModel?.imgeURL}${liveMatchModel?.teamBImage}",
                             width: 30,
                             height: 30,
                           ),
@@ -95,7 +88,7 @@ class MatchCardWidget extends StatelessWidget {
                         Opacity(
                           opacity: 0.5,
                           child: CustomText(
-                              size: 12, text: matchModel?.teamB ?? ''),
+                              size: 12, text: liveMatchModel?.teamB ?? ''),
                         ),
                       ],
                     ),
@@ -108,14 +101,14 @@ class MatchCardWidget extends StatelessWidget {
               CustomText(
                   size: 12,
                   textColor: Colors.blueGrey,
-                  text: matchModel?.matchtime ?? ''),
+                  text: liveMatchModel?.matchtime ?? ''),
               const SizedBox(
                 height: 10,
               ),
               CustomText(
                   size: 12,
                   textColor: Colors.blueGrey,
-                  text: matchModel?.venue ?? ''),
+                  text: liveMatchModel?.venue ?? ''),
               const SizedBox(
                 height: 10,
               ),
@@ -124,7 +117,7 @@ class MatchCardWidget extends StatelessWidget {
                 child: CustomText(
                     size: 12,
                     textColor: Colors.green,
-                    text: matchModel?.result ?? ''),
+                    text: liveMatchModel?.result ?? ''),
               ),
               const SizedBox(
                 height: 10,

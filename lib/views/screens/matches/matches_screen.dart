@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:live_score/controller/match_controller.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
+import 'package:live_score/views/widgets/live_card_widget.dart';
 import 'package:live_score/views/widgets/match_card_widget.dart';
 
 class MatchesScreen extends StatelessWidget {
@@ -38,14 +39,14 @@ class MatchesScreen extends StatelessWidget {
                       onPageChanged: (index, reason) {
                         matchController.current.value = index;
                       }),
-                  items: matchController.overviewList.map((i) {
+                  items: matchController.liveList.map((i) {
                     return Builder(
                       builder: (BuildContext context) {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          child: MatchCardWidget(
-                            matchModel: i,
-                            status: 'Finished',
+                          child: LiveCardWidget(
+                            liveMatchModel: i,
+                            status: 'Live',
                           ),
                         );
                       },
@@ -56,13 +57,12 @@ class MatchesScreen extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-
-
           Padding(
             padding: const EdgeInsets.all(10.0),
             child: Container(
               color: AppTheme.mainColor.withOpacity(0.8),
-              padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5),
               child: const CustomText(
                 text: 'Overview',
                 size: 16,
@@ -71,7 +71,6 @@ class MatchesScreen extends StatelessWidget {
               ),
             ),
           ),
-
           Obx(
             () => matchController.isLoading.value
                 ? const Center(

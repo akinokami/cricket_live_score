@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/result_controller.dart';
 import 'package:live_score/utils/app_theme.dart';
-import 'package:live_score/views/screens/results/result_details_screen.dart';
 import 'package:live_score/views/widgets/custom_text.dart';
 import 'package:live_score/views/widgets/match_card_widget.dart';
 
@@ -38,14 +37,9 @@ class ResultScreen extends StatelessWidget {
                     shrinkWrap: true,
                     itemCount: resultController.resultList.length,
                     itemBuilder: (BuildContext context, int index) {
-                      return GestureDetector(
-                        onTap: () {
-                           Get.to(() => ResultDetailsScreen(matchModel:resultController.resultList[index]));
-                        },
-                        child: MatchCardWidget(
-                          matchModel: resultController.resultList[index],
-                          status: 'Finished',
-                        ),
+                      return MatchCardWidget(
+                        matchModel: resultController.resultList[index],
+                        status: 'Finished',
                       );
                     },
                   ),

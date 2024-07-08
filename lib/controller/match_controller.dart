@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/models/match_model.dart';
 import 'package:live_score/services/api_repo.dart';
 import 'package:live_score/utils/app_theme.dart';
@@ -9,10 +10,12 @@ class MatchController extends GetxController {
 
   final RxList<MatchModel> overviewList = <MatchModel>[].obs;
   final current = 0.obs;
+  final RxList<LiveMatchModel> liveList = <LiveMatchModel>[].obs;
 
   @override
   void onInit() async {
     super.onInit();
+    await getLiveList();
     await getOverviewList();
   }
 
@@ -24,6 +27,20 @@ class MatchController extends GetxController {
   @override
   void onClose() {
     //
+  }
+
+  Future<void> getLiveList() async {
+    isLoading.value = true;
+    try {
+      final result = await ApiRepo().getLiveList();
+      liveList.value = result;
+    } catch (e) {
+      isLoading.value = false;
+      constants.showSnackBar(
+          title: 'Error', msg: e.toString(), textColor: AppTheme.red);
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> getOverviewList() async {
