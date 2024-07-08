@@ -76,24 +76,19 @@ class MatchesScreen extends StatelessWidget {
                 ? const Center(
                     child: CircularProgressIndicator(),
                   )
-                : SizedBox(
-                    height: MediaQuery.of(context).size.height,
-                    child: Padding(
-                      padding: const EdgeInsets.all(
-                        10,
-                      ),
-                      child: ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: matchController.overviewList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return MatchCardWidget(
-                            matchModel: matchController.overviewList[index],
-                            status: 'Finished',
-                          );
-                        },
-                      ),
-                    ),
+                : Container(
+                    height: MediaQuery.of(context).size.height * 0.5,
+                  child: ListView.builder(
+                    scrollDirection: Axis.vertical,
+                    itemCount: matchController.overviewList.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return MatchCardWidget(
+                        matchModel: matchController.overviewList[index],
+                        status: 'Finished',
+                      );
+                    },
                   ),
+                ),
           ),
         ],
       ),
