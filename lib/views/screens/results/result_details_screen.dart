@@ -201,53 +201,86 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                 padding: const EdgeInsets.all(10.0),
                                 child: Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceEvenly,
                                   children: [
                                     SizedBox(
                                       width: MediaQuery.of(context).size.width *
                                           0.3,
+                                      child: Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 25,
+                                          ),
+                                          Text(
+                                            textAlign: TextAlign.center,
+                                            "Batsman",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
                                       child: Text(
-                                        "Batsman",
+                                        "R",
+                                        textAlign: TextAlign.right,
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600),
                                       ),
                                     ),
-                                    Text(
-                                      "R",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: Text(
+                                        "B",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                    Text(
-                                      "B",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: Text(
+                                        "4s",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                    Text(
-                                      "4s",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: Text(
+                                        "6s",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
-                                    Text(
-                                      "6s",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    Text(
-                                      "Sr",
-                                      style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w600),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      child: Text(
+                                        "Sr",
+                                        textAlign: TextAlign.right,
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600),
+                                      ),
                                     ),
                                   ],
                                 ),
@@ -290,6 +323,7 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                                 SizedBox(
                                                   width: 80,
                                                   child: Text(
+                                                    //textAlign: TextAlign.right,
                                                     matchDetailController
                                                             .filterScoreList[
                                                                 index]
@@ -306,65 +340,101 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                               ],
                                             ),
                                           ),
-                                          Text(
-                                            matchDetailController
-                                                .filterScoreList[index].runs
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: AppTheme.mainColor,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
+                                            child: Text(
+                                              textAlign: TextAlign.right,
+                                              matchDetailController
+                                                  .filterScoreList[index].runs
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: AppTheme.mainColor,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
-                                          Text(
-                                            matchDetailController
-                                                .filterScoreList[index].balls
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: AppTheme.mainColor,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
+                                            child: Text(
+                                              textAlign: TextAlign.right,
+                                              matchDetailController
+                                                  .filterScoreList[index].balls
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: AppTheme.mainColor,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
-                                          Text(
-                                            matchDetailController
-                                                .filterScoreList[index].four
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: AppTheme.mainColor,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
+                                            child: Text(
+                                              textAlign: TextAlign.right,
+                                              matchDetailController
+                                                  .filterScoreList[index].four
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: AppTheme.mainColor,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
-                                          Text(
-                                            matchDetailController
-                                                .filterScoreList[index].six
-                                                .toString(),
-                                            style: TextStyle(
-                                                color: AppTheme.mainColor,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
+                                            child: Text(
+                                              textAlign: TextAlign.right,
+                                              matchDetailController
+                                                  .filterScoreList[index].six
+                                                  .toString(),
+                                              style: TextStyle(
+                                                  color: AppTheme.mainColor,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
-                                          Text(
-                                            matchDetailController
-                                                        .filterScoreList[index]
-                                                        .balls !=
-                                                    0
-                                                ? (num.parse(matchDetailController
-                                                            .filterScoreList[
-                                                                index]
-                                                            .runs
-                                                            .toString()) /
-                                                        num.parse(
-                                                            matchDetailController
-                                                                .filterScoreList[
-                                                                    index]
-                                                                .balls
-                                                                .toString()) *
-                                                        100)
-                                                    .toStringAsFixed(1)
-                                                : '0.0',
-                                            style: TextStyle(
-                                                color: AppTheme.mainColor,
-                                                fontSize: 12,
-                                                fontWeight: FontWeight.w600),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.1,
+                                            child: Text(
+                                              textAlign: TextAlign.right,
+                                              matchDetailController
+                                                          .filterScoreList[
+                                                              index]
+                                                          .balls !=
+                                                      0
+                                                  ? (num.parse(matchDetailController
+                                                              .filterScoreList[
+                                                                  index]
+                                                              .runs
+                                                              .toString()) /
+                                                          num.parse(
+                                                              matchDetailController
+                                                                  .filterScoreList[
+                                                                      index]
+                                                                  .balls
+                                                                  .toString()) *
+                                                          100)
+                                                      .toStringAsFixed(1)
+                                                  : '0.0',
+                                              style: TextStyle(
+                                                  color: AppTheme.mainColor,
+                                                  fontSize: 12,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -472,11 +542,18 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              CustomText(
-                                                text: matchDetailController
-                                                        .filterOddList[index]
-                                                        .score ??
-                                                    '',
+                                              SizedBox(
+                                                width: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.1,
+                                                child: CustomText(
+                                                  text: matchDetailController
+                                                          .filterOddList[index]
+                                                          .score ??
+                                                      '',
+                                                  isEllip: true,
+                                                ),
                                               ),
                                               IntrinsicWidth(
                                                 child: Column(
