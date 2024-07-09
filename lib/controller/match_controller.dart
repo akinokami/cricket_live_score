@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:live_score/models/live_match_model.dart';
 import 'package:live_score/models/match_model.dart';
@@ -21,7 +23,9 @@ class MatchController extends GetxController {
 
   @override
   void onReady() {
-    //
+    // Timer.periodic(const Duration(seconds: 7), (timer) async {
+    //   await getLiveList();
+    // });
   }
 
   @override
@@ -30,10 +34,12 @@ class MatchController extends GetxController {
   }
 
   Future<void> getLiveList() async {
-    isLoading.value = true;
+    // isLoading.value = true;
     try {
       final result = await ApiRepo().getLiveList();
       liveList.value = result;
+      print(liveList.length);
+      print(liveList.length);
     } catch (e) {
       isLoading.value = false;
       constants.showSnackBar(

@@ -13,14 +13,14 @@ class LiveCardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (status == 'Live') {
-          Get.to(() => LiveDetailsScreen(), arguments: {
-            'title': liveMatchModel?.title,
-            'teamA': liveMatchModel?.teamA,
-            'teamB': liveMatchModel?.teamB,
-            'matchId': liveMatchModel?.matchId
-          });
-        }
+        // if (status == 'Live') {
+        Get.to(() => LiveDetailsScreen(), arguments: {
+          'title': liveMatchModel?.title,
+          'teamA': liveMatchModel?.teamA,
+          'teamB': liveMatchModel?.teamB,
+          'matchId': liveMatchModel?.matchId
+        });
+        //}
       },
       child: Card(
         color: Colors.white,

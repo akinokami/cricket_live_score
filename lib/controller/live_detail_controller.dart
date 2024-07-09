@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:live_score/models/live_line_match_model.dart';
 import 'package:live_score/models/odd_model.dart';
@@ -52,6 +54,20 @@ class LiveDetailController extends GetxController {
 
   Future<void> getLiveLine() async {
     isLoading.value = true;
+    try {
+      final result = await ApiRepo().getLiveLine(matchId.value);
+      liveLineList.value = result;
+    } catch (e) {
+      isLoading.value = false;
+      constants.showSnackBar(
+          title: 'Error', msg: e.toString(), textColor: AppTheme.red);
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> getLiveLineLive() async {
+    isLoading.value = false;
     try {
       final result = await ApiRepo().getLiveLine(matchId.value);
       liveLineList.value = result;

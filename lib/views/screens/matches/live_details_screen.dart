@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/live_detail_controller.dart';
@@ -19,6 +21,7 @@ class LiveDetailsScreen extends StatefulWidget {
 }
 
 class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
+  final liveDetailController = Get.put(LiveDetailController());
   List<ChipModel> chipList = [
     ChipModel(title: 'Live Line', icon: Icons.live_tv),
     ChipModel(title: 'Score Card', icon: Icons.sports_cricket),
@@ -32,9 +35,58 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
   List<String> inningList = ['1st Innings', '2nd Innings'];
   int selectedInningIndex = 0;
 
+  Timer? timer;
+
+  @override
+  void initState() {
+    timer = Timer.periodic(const Duration(seconds: 7), (timer) {
+      liveDetailController.getLiveLineLive();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
+  String matchOddOne(String originalString) {
+    int spaceIndex = originalString.indexOf(' ');
+    int hyphenIndex = originalString.indexOf('-');
+
+    // Determine which comes first: space or hyphen
+    int separatorIndex = (spaceIndex == -1 || hyphenIndex < spaceIndex)
+        ? hyphenIndex
+        : spaceIndex;
+
+    // Extract substring from start to separator
+    String result = originalString.substring(0, separatorIndex);
+
+    print(result);
+    return result;
+  }
+
+  String matchOddTwo(String originalString) {
+    // Find the position of the hyphen and the space
+    originalString.replaceAll(' ', '');
+    int hyphenIndex = originalString.indexOf('-');
+    int spaceIndex = originalString.indexOf('|');
+
+    // Extract substring from after the hyphen to the space
+    String result = originalString.substring(hyphenIndex + 1, spaceIndex);
+
+    print(result); // Outputs: 90
+    return result;
+  }
+
+  String lastSixBall(String originalString) {
+    String result = originalString.replaceAll('-', '       ');
+    return result;
+  }
+
   @override
   Widget build(BuildContext context) {
-    final liveDetailController = Get.put(LiveDetailController());
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -141,36 +193,53 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                     children: [
                                       CustomText(
                                         text: liveDetailController
-                                                .liveLineList[0].teamA ??
-                                            'aa',
+                                                .liveLineList[0]
+                                                .jsondata
+                                                ?.jsondata
+                                                ?.teamA ??
+                                            '',
                                         size: 12,
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
-                                      Image.network(
-                                          "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_the_Philippines.svg/1280px-Flag_of_the_Philippines.svg.png",
-                                          width: 50,
-                                          height: 50),
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                            "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamABanner ?? ''}",
+                                            width: 50,
+                                            height: 50),
+                                      ),
                                     ],
                                   ),
                                   Row(
                                     children: [
-                                      Image.network(
-                                        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Flag_of_the_Philippines.svg/1280px-Flag_of_the_Philippines.svg.png",
-                                        width: 50,
-                                        height: 50,
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.network(
+                                          "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamBBanner ?? ''}",
+                                          width: 50,
+                                          height: 50,
+                                        ),
                                       ),
                                       SizedBox(
                                         width: 10,
                                       ),
                                       CustomText(
-                                        text: "Team B",
+                                        text: liveDetailController
+                                                .liveLineList[0]
+                                                .jsondata
+                                                ?.jsondata
+                                                ?.teamB ??
+                                            '',
                                         size: 12,
                                       ),
                                     ],
                                   )
                                 ],
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Container(
                                 padding: EdgeInsets.all(5),
@@ -194,12 +263,22 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         CustomText(
-                                          text: "0/0",
+                                          text: liveDetailController
+                                                  .liveLineList[0]
+                                                  .jsondata
+                                                  ?.jsondata
+                                                  ?.wicketA ??
+                                              '',
                                           textColor: Colors.white,
                                           size: 13,
                                         ),
                                         CustomText(
-                                          text: "Overs : 0.0",
+                                          text: liveDetailController
+                                                  .liveLineList[0]
+                                                  .jsondata
+                                                  ?.jsondata
+                                                  ?.oversA ??
+                                              '',
                                           textColor:
                                               Colors.white.withOpacity(0.5),
                                           size: 13,
@@ -207,7 +286,17 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                       ],
                                     ),
                                     CustomText(
-                                      text: "0/0",
+                                      text: liveDetailController.liveLineList[0]
+                                              .jsondata?.jsondata?.score ??
+                                          '',
+                                      textColor: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      size: 13,
+                                    ),
+                                    CustomText(
+                                      text: liveDetailController.liveLineList[0]
+                                              .jsondata?.jsondata?.wicketB ??
+                                          '',
                                       textColor: Colors.white,
                                       size: 13,
                                     ),
@@ -267,7 +356,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CustomText(
-                                      text: ".   .   .   .   .   .   .",
+                                      text: lastSixBall(liveDetailController
+                                              .liveLineList[0]
+                                              .jsondata
+                                              ?.jsondata
+                                              ?.last6Balls ??
+                                          ''),
                                       textColor: Colors.white,
                                       size: 13,
                                     ),
@@ -315,7 +409,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                           MainAxisAlignment.spaceEvenly,
                                       children: [
                                         CustomText(
-                                          text: "TeamA",
+                                          text: liveDetailController
+                                                  .liveLineList[0]
+                                                  .jsonruns
+                                                  ?.jsonruns
+                                                  ?.fav ??
+                                              '',
                                           textColor: Colors.white,
                                           size: 13,
                                         ),
@@ -341,7 +440,14 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                     child: CustomText(
-                                                      text: "96",
+                                                      text: matchOddOne(
+                                                          liveDetailController
+                                                                  .liveLineList[
+                                                                      0]
+                                                                  .jsondata
+                                                                  ?.jsondata
+                                                                  ?.rateA ??
+                                                              ''),
                                                       textColor: Colors.white,
                                                       size: 10,
                                                     ),
@@ -363,7 +469,14 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                     child: CustomText(
-                                                      text: "99",
+                                                      text: matchOddTwo(
+                                                          liveDetailController
+                                                                  .liveLineList[
+                                                                      0]
+                                                                  .jsondata
+                                                                  ?.jsondata
+                                                                  ?.rateA ??
+                                                              ''),
                                                       textColor: Colors.white,
                                                       size: 10,
                                                     ),
@@ -401,7 +514,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                     child: CustomText(
-                                                      text: "0",
+                                                      text: liveDetailController
+                                                              .liveLineList[0]
+                                                              .jsonruns
+                                                              ?.jsonruns
+                                                              ?.sessionA ??
+                                                          '',
                                                       textColor: Colors.white,
                                                       size: 10,
                                                     ),
@@ -423,7 +541,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                     child: CustomText(
-                                                      text: "1",
+                                                      text: liveDetailController
+                                                              .liveLineList[0]
+                                                              .jsonruns
+                                                              ?.jsonruns
+                                                              ?.sessionB ??
+                                                          '',
                                                       textColor: Colors.white,
                                                       size: 10,
                                                     ),
@@ -441,7 +564,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                               size: 13,
                                             ),
                                             CustomText(
-                                              text: "0",
+                                              text: liveDetailController
+                                                      .liveLineList[0]
+                                                      .jsonruns
+                                                      ?.jsonruns
+                                                      ?.sessionOver ??
+                                                  '',
                                               textColor: Colors.white,
                                               size: 13,
                                             ),
@@ -469,7 +597,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                     child: CustomText(
-                                                      text: "0",
+                                                      text: liveDetailController
+                                                              .liveLineList[0]
+                                                              .jsonruns
+                                                              ?.jsonruns
+                                                              ?.runxa ??
+                                                          '',
                                                       textColor: Colors.white,
                                                       size: 10,
                                                     ),
@@ -491,7 +624,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                   ),
                                                   child: Center(
                                                     child: CustomText(
-                                                      text: "0",
+                                                      text: liveDetailController
+                                                              .liveLineList[0]
+                                                              .jsonruns
+                                                              ?.jsonruns
+                                                              ?.runxb ??
+                                                          '',
                                                       textColor: Colors.white,
                                                       size: 10,
                                                     ),
@@ -576,7 +714,7 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                               width: MediaQuery.of(context)
                                                       .size
                                                       .width *
-                                                  .10,
+                                                  .1,
                                               child: CustomText(
                                                 text: "B",
                                                 textColor: Colors.white,
@@ -657,7 +795,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                       .width *
                                                   .1,
                                               child: CustomText(
-                                                text: "0",
+                                                text: liveDetailController
+                                                        .liveLineList[0]
+                                                        .jsondata
+                                                        ?.jsondata
+                                                        ?.s4 ??
+                                                    '',
                                                 textColor: Colors.white,
                                                 size: 10,
                                               )),
@@ -667,7 +810,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                       .width *
                                                   .1,
                                               child: CustomText(
-                                                text: "0",
+                                                text: liveDetailController
+                                                        .liveLineList[0]
+                                                        .jsondata
+                                                        ?.jsondata
+                                                        ?.s6 ??
+                                                    '',
                                                 textColor: Colors.white,
                                                 size: 10,
                                               )),
@@ -726,7 +874,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                       .width *
                                                   .1,
                                               child: CustomText(
-                                                text: "0",
+                                                text: liveDetailController
+                                                        .liveLineList[0]
+                                                        .jsondata
+                                                        ?.jsondata
+                                                        ?.ns4 ??
+                                                    '',
                                                 textColor: Colors.white,
                                                 size: 10,
                                               )),
@@ -736,7 +889,12 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                                       .width *
                                                   .1,
                                               child: CustomText(
-                                                text: "0",
+                                                text: liveDetailController
+                                                        .liveLineList[0]
+                                                        .jsondata
+                                                        ?.jsondata
+                                                        ?.ns6 ??
+                                                    '',
                                                 textColor: Colors.white,
                                                 size: 10,
                                               )),
@@ -759,7 +917,8 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                     Padding(
                                       padding: EdgeInsets.all(10),
                                       child: CustomText(
-                                        text: "Bowler : 0",
+                                        text:
+                                            "Bowler : ${liveDetailController.liveLineList[0].jsondata?.jsondata?.bowler}",
                                         textColor: Colors.white,
                                         size: 12,
                                       ),
@@ -787,8 +946,8 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.symmetric(horizontal: 5),
-                                height: MediaQuery.of(context).size.height * .2,
+                                padding: EdgeInsets.all(10),
+                                width: double.infinity,
                                 decoration: BoxDecoration(
                                   border: Border.all(
                                       color:
@@ -798,17 +957,20 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                       bottomLeft: Radius.circular(2),
                                       bottomRight: Radius.circular(2)),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    CustomText(
-                                      text: ".   .   .   .   .   .   .",
-                                      textColor: Colors.white,
-                                      size: 13,
-                                    ),
-                                  ],
+                                child: Text(
+                                  liveDetailController.liveLineList[0].jsonruns
+                                          ?.jsonruns?.summary ??
+                                      '',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                  ),
                                 ),
                               ),
+                              SizedBox(
+                                height: 20,
+                              )
                             ],
                           ),
                         ),
@@ -892,51 +1054,88 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                             Container(
                               color: AppTheme.mainColor,
                               padding: const EdgeInsets.all(10.0),
-                              child: const Row(
+                              child: Row(
                                 mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Text(
-                                    "Batsman",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.3,
+                                    child: Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 25,
+                                        ),
+                                        Text(
+                                          textAlign: TextAlign.center,
+                                          "Batsman",
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Text(
-                                    "R",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Text(
+                                      "R",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                  Text(
-                                    "B",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Text(
+                                      "B",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                  Text(
-                                    "4s",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Text(
+                                      "4s",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                  Text(
-                                    "6s",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Text(
+                                      "6s",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
-                                  Text(
-                                    "Sr",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w600),
+                                  SizedBox(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.1,
+                                    child: Text(
+                                      "Sr",
+                                      textAlign: TextAlign.right,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600),
+                                    ),
                                   ),
                                 ],
                               ),
@@ -957,76 +1156,138 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceAround,
                                       children: [
-                                        Row(
-                                          children: [
-                                            CircleAvatar(
-                                                radius: 10,
-                                                backgroundColor:
-                                                    AppTheme.mainColor,
-                                                child: Icon(
-                                                  Icons.person,
-                                                  color: Colors.white,
-                                                  size: 15,
-                                                )),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              liveDetailController
-                                                      .filterScoreList[index]
-                                                      .playerName ??
-                                                  '',
-                                              style: TextStyle(
-                                                  color: AppTheme.mainColor,
-                                                  fontSize: 12,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          ],
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.3,
+                                          child: Row(
+                                            children: [
+                                              CircleAvatar(
+                                                  radius: 10,
+                                                  backgroundColor:
+                                                      AppTheme.mainColor,
+                                                  child: Icon(
+                                                    Icons.person,
+                                                    color: Colors.white,
+                                                    size: 15,
+                                                  )),
+                                              SizedBox(
+                                                width: 5,
+                                              ),
+                                              SizedBox(
+                                                width: 80,
+                                                child: Text(
+                                                  //textAlign: TextAlign.right,
+                                                  liveDetailController
+                                                          .filterScoreList[
+                                                              index]
+                                                          .playerName ??
+                                                      '',
+                                                  style: TextStyle(
+                                                      color: AppTheme.mainColor,
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.w500),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
-                                        Text(
-                                          liveDetailController
-                                              .filterScoreList[index].runs
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: AppTheme.mainColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child: Text(
+                                            textAlign: TextAlign.right,
+                                            liveDetailController
+                                                .filterScoreList[index].runs
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: AppTheme.mainColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
-                                        Text(
-                                          liveDetailController
-                                              .filterScoreList[index].balls
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: AppTheme.mainColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child: Text(
+                                            textAlign: TextAlign.right,
+                                            liveDetailController
+                                                .filterScoreList[index].balls
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: AppTheme.mainColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
-                                        Text(
-                                          liveDetailController
-                                              .filterScoreList[index].four
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: AppTheme.mainColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child: Text(
+                                            textAlign: TextAlign.right,
+                                            liveDetailController
+                                                .filterScoreList[index].four
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: AppTheme.mainColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
-                                        Text(
-                                          liveDetailController
-                                              .filterScoreList[index].six
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: AppTheme.mainColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child: Text(
+                                            textAlign: TextAlign.right,
+                                            liveDetailController
+                                                .filterScoreList[index].six
+                                                .toString(),
+                                            style: TextStyle(
+                                                color: AppTheme.mainColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
-                                        Text(
-                                          liveDetailController
-                                              .filterScoreList[index].runs
-                                              .toString(),
-                                          style: TextStyle(
-                                              color: AppTheme.mainColor,
-                                              fontSize: 12,
-                                              fontWeight: FontWeight.w600),
+                                        SizedBox(
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.1,
+                                          child: Text(
+                                            textAlign: TextAlign.right,
+                                            liveDetailController
+                                                        .filterScoreList[index]
+                                                        .balls !=
+                                                    0
+                                                ? (num.parse(liveDetailController
+                                                            .filterScoreList[
+                                                                index]
+                                                            .runs
+                                                            .toString()) /
+                                                        num.parse(
+                                                            liveDetailController
+                                                                .filterScoreList[
+                                                                    index]
+                                                                .balls
+                                                                .toString()) *
+                                                        100)
+                                                    .toStringAsFixed(1)
+                                                : '0.0',
+                                            style: TextStyle(
+                                                color: AppTheme.mainColor,
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600),
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -1133,11 +1394,18 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            CustomText(
-                                              text: liveDetailController
-                                                      .filterOddList[index]
-                                                      .score ??
-                                                  '',
+                                            SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.1,
+                                              child: CustomText(
+                                                text: liveDetailController
+                                                        .filterOddList[index]
+                                                        .score ??
+                                                    '',
+                                                isEllip: true,
+                                              ),
                                             ),
                                             IntrinsicWidth(
                                               child: Column(

@@ -62,6 +62,9 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   ListView.builder(
+                    itemCount: chipList.length,
+                    shrinkWrap: true,
+                    scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -112,9 +115,6 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
                         ),
                       );
                     },
-                    itemCount: chipList.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
                   ),
                 ],
               ),
