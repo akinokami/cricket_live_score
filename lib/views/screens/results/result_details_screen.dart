@@ -58,65 +58,59 @@ class _ResultDetailsScreenState extends State<ResultDetailsScreen> {
               height: MediaQuery.of(context).size.height * .06,
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(5.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  ListView.builder(
-                    itemCount: chipList.length,
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                          if (selectedIndex == 0) {
-                            matchDetailController.getScore();
-                          } else if (selectedIndex == 1) {
-                            matchDetailController.getOdd();
-                          } else if (selectedIndex == 2) {
-                            matchDetailController.getSummary();
-                          }
-                        },
+              child: ListView.builder(
+                itemCount: chipList.length,
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        selectedIndex = index;
+                      });
+                      if (selectedIndex == 0) {
+                        matchDetailController.getScore();
+                      } else if (selectedIndex == 1) {
+                        matchDetailController.getOdd();
+                      } else if (selectedIndex == 2) {
+                        matchDetailController.getSummary();
+                      }
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 4.0, vertical: 2),
+                      child: Material(
+                        elevation: 5,
+                        borderRadius: BorderRadius.circular(10),
                         child: Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4.0, vertical: 2),
-                          child: Material(
-                            elevation: 5,
+                          height: 20,
+                          width: 120,
+                          padding: const EdgeInsets.all(5.0),
+                          decoration: BoxDecoration(
+                            color: selectedIndex == index
+                                ? AppTheme.mainColor
+                                : Colors.white,
                             borderRadius: BorderRadius.circular(10),
-                            child: Container(
-                              height: 20,
-                              width: 120,
-                              padding: const EdgeInsets.all(5.0),
-                              decoration: BoxDecoration(
-                                color: selectedIndex == index
-                                    ? AppTheme.mainColor
-                                    : Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Icon(chipList[index].icon,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Icon(chipList[index].icon,
+                                  color: selectedIndex == index
+                                      ? Colors.white
+                                      : AppTheme.mainColor),
+                              Text(chipList[index].title,
+                                  style: TextStyle(
                                       color: selectedIndex == index
                                           ? Colors.white
-                                          : AppTheme.mainColor),
-                                  Text(chipList[index].title,
-                                      style: TextStyle(
-                                          color: selectedIndex == index
-                                              ? Colors.white
-                                              : AppTheme.mainColor)),
-                                ],
-                              ),
-                            ),
+                                          : AppTheme.mainColor)),
+                            ],
                           ),
                         ),
-                      );
-                    },
-                  ),
-                ],
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
             if (selectedIndex == 0)

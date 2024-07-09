@@ -47,6 +47,10 @@ class LiveLineModel {
       this.admsg});
 
   LiveLineModel.fromJson(Map<String, dynamic> json) {
+    // final String jr =
+    //     json['jsonruns'].toString().replaceAll(r"\\n\n\", r"\\n\");
+    // print("jsonstring >>>> $jr");
+    // print("jsonstring >>>> ${json['jsonruns']}");
     jsonruns = json['jsonruns'] != null
         ? new LiveLineJrModel.fromJson(jsonDecode(json['jsonruns']))
         : null;

@@ -59,8 +59,8 @@ class LiveDetailController extends GetxController {
       liveLineList.value = result;
     } catch (e) {
       isLoading.value = false;
-      constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: AppTheme.red);
+      // constants.showSnackBar(
+      //     title: 'Error', msg: e.toString(), textColor: AppTheme.red);
     } finally {
       isLoading.value = false;
     }
@@ -73,8 +73,8 @@ class LiveDetailController extends GetxController {
       liveLineList.value = result;
     } catch (e) {
       isLoading.value = false;
-      constants.showSnackBar(
-          title: 'Error', msg: e.toString(), textColor: AppTheme.red);
+      // constants.showSnackBar(
+      //     title: 'Error', msg: e.toString(), textColor: AppTheme.red);
     } finally {
       isLoading.value = false;
     }

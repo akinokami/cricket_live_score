@@ -19,7 +19,8 @@ class Home extends StatelessWidget {
 
   buildBottomNavigationMenu(context, landingPageController) {
     return Obx(() => MediaQuery(
-        data: MediaQuery.of(context).copyWith(textScaler: const TextScaler.linear(1.0)),
+        data: MediaQuery.of(context)
+            .copyWith(textScaler: const TextScaler.linear(1.0)),
         child: SizedBox(
           height: 60,
           child: BottomNavigationBar(
@@ -33,6 +34,17 @@ class Home extends StatelessWidget {
             unselectedLabelStyle: unselectedLabelStyle,
             selectedLabelStyle: selectedLabelStyle,
             items: [
+              BottomNavigationBarItem(
+                icon: Container(
+                  margin: const EdgeInsets.only(bottom: 7),
+                  child: const Icon(
+                    Icons.newspaper_outlined,
+                    size: 20.0,
+                  ),
+                ),
+                label: 'News',
+                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
+              ),
               BottomNavigationBarItem(
                 icon: Container(
                   margin: const EdgeInsets.only(bottom: 7),
@@ -66,17 +78,6 @@ class Home extends StatelessWidget {
                 label: 'Results',
                 backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
               ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: const EdgeInsets.only(bottom: 7),
-                  child: const Icon(
-                    Icons.newspaper_outlined,
-                    size: 20.0,
-                  ),
-                ),
-                label: 'News',
-                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
-              ),
             ],
           ),
         )));
@@ -92,10 +93,10 @@ class Home extends StatelessWidget {
       body: Obx(() => IndexedStack(
             index: homeController.tabIndex.value,
             children: const [
+              NewsScreen(),
               MatchesScreen(),
               UpcomingScreen(),
               ResultScreen(),
-              NewsScreen(),
             ],
           )),
     ));
