@@ -33,8 +33,8 @@ class MatchDetailController extends GetxController {
     teamList.value = [teamA.value, teamB.value];
 
     await getScore();
-    await getOdd();
-    await getSummary();
+    // await getOdd();
+    // await getSummary();
   }
 
   @override

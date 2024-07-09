@@ -89,9 +89,9 @@ class ApiUtils {
         queryParameters: queryParameters,
         options: options,
       );
-      if (response.data['success'] == false) {
-        throw CustomException(response.data['message']);
-      }
+      // if (response.data['success'] == false) {
+      //   throw CustomException(response.data['message']);
+      // }
       return response;
     } on DioException catch (dioError) {
       if (dioError.type == DioExceptionType.cancel) {

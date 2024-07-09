@@ -54,23 +54,22 @@ class ApiRepo {
         url: "${ApiConstant.baseUrl}MatchResults",
         data: {"start": "1", "end": "15"},
       );
-      final resultList = response.data as List;
+      final resultList = response.data['AllMatch'] as List;
       return resultList.map((item) => MatchModel.fromJson(item)).toList();
     } catch (e) {
       throw CustomException(e.toString());
     }
   }
 
-  Future<List<LiveLineMatchModel>> getLiveLine(String matchId) async {
+  Future<List<LiveLineModel>> getLiveLine(String matchId) async {
     try {
       final response = await apiUtils.post(
         url: "${ApiConstant.baseUrl}LiveLine_Match",
         data: {"MatchId": matchId},
       );
+
       final resultList = response.data as List;
-      return resultList
-          .map((item) => LiveLineMatchModel.fromJson(item))
-          .toList();
+      return resultList.map((item) => LiveLineModel.fromJson(item)).toList();
     } catch (e) {
       throw CustomException(e.toString());
     }

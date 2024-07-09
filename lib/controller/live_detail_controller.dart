@@ -10,7 +10,7 @@ import 'package:live_score/utils/constants.dart';
 class LiveDetailController extends GetxController {
   final isLoading = false.obs;
 
-  final RxList<LiveLineMatchModel> liveLineList = <LiveLineMatchModel>[].obs;
+  final RxList<LiveLineModel> liveLineList = <LiveLineModel>[].obs;
 
   final RxList<PlayerModel> scoreList = <PlayerModel>[].obs;
   final RxList<PlayerModel> filterScoreList = <PlayerModel>[].obs;
@@ -35,9 +35,9 @@ class LiveDetailController extends GetxController {
     teamB.value = Get.arguments['teamB'].toString();
     teamList.value = [teamA.value, teamB.value];
     await getLiveLine();
-    await getScore();
-    await getOdd();
-    await getSummary();
+    // await getScore();
+    // await getOdd();
+    // await getSummary();
   }
 
   @override

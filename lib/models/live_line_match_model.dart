@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-class LiveLineMatchModel {
+class LiveLineModel {
   LiveLineJrModel? jsonruns;
-  String? jsondata;
+  LiveLineJdModel? jsondata;
   String? title;
   String? matchtime;
   String? venue;
@@ -23,7 +23,7 @@ class LiveLineMatchModel {
   String? adimage;
   String? admsg;
 
-  LiveLineMatchModel(
+  LiveLineModel(
       {this.jsonruns,
       this.jsondata,
       this.title,
@@ -46,13 +46,13 @@ class LiveLineMatchModel {
       this.adimage,
       this.admsg});
 
-  LiveLineMatchModel.fromJson(Map<String, dynamic> json) {
-    // jsonruns = json['jsonruns'];
-
+  LiveLineModel.fromJson(Map<String, dynamic> json) {
     jsonruns = json['jsonruns'] != null
         ? new LiveLineJrModel.fromJson(jsonDecode(json['jsonruns']))
         : null;
-    jsondata = json['jsondata'];
+    jsondata = json['jsondata'] != null
+        ? new LiveLineJdModel.fromJson(jsonDecode(json['jsondata']))
+        : null;
     title = json['Title'];
     matchtime = json['Matchtime'];
     venue = json['venue'];
@@ -102,6 +102,26 @@ class LiveLineMatchModel {
 }
 
 class LiveLineJrModel {
+  Jsonruns? jsonruns;
+
+  LiveLineJrModel({this.jsonruns});
+
+  LiveLineJrModel.fromJson(Map<String, dynamic> json) {
+    jsonruns = json['jsonruns'] != null
+        ? new Jsonruns.fromJson(json['jsonruns'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jsonruns != null) {
+      data['jsonruns'] = this.jsonruns!.toJson();
+    }
+    return data;
+  }
+}
+
+class Jsonruns {
   String? runxa;
   String? runxb;
   String? fav;
@@ -113,7 +133,7 @@ class LiveLineJrModel {
   String? summary;
   String? stat;
 
-  LiveLineJrModel(
+  Jsonruns(
       {this.runxa,
       this.runxb,
       this.fav,
@@ -125,7 +145,7 @@ class LiveLineJrModel {
       this.summary,
       this.stat});
 
-  LiveLineJrModel.fromJson(Map<String, dynamic> json) {
+  Jsonruns.fromJson(Map<String, dynamic> json) {
     runxa = json['runxa'];
     runxb = json['runxb'];
     fav = json['fav'];
@@ -155,6 +175,26 @@ class LiveLineJrModel {
 }
 
 class LiveLineJdModel {
+  Jsondata? jsondata;
+
+  LiveLineJdModel({this.jsondata});
+
+  LiveLineJdModel.fromJson(Map<String, dynamic> json) {
+    jsondata = json['jsondata'] != null
+        ? new Jsondata.fromJson(json['jsondata'])
+        : null;
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.jsondata != null) {
+      data['jsondata'] = this.jsondata!.toJson();
+    }
+    return data;
+  }
+}
+
+class Jsondata {
   String? batsman;
   String? batsmanimage;
   String? appversion;
@@ -180,6 +220,7 @@ class LiveLineJdModel {
   String? teamABanner;
   String? teamBBanner;
   String? imgurl;
+  String? admsg;
   String? matchtype;
   String? testTeamA;
   String? testTeamARate1;
@@ -244,7 +285,7 @@ class LiveLineJdModel {
   String? lambiA;
   String? lambiB;
 
-  LiveLineJdModel(
+  Jsondata(
       {this.batsman,
       this.batsmanimage,
       this.appversion,
@@ -270,6 +311,7 @@ class LiveLineJdModel {
       this.teamABanner,
       this.teamBBanner,
       this.imgurl,
+      this.admsg,
       this.matchtype,
       this.testTeamA,
       this.testTeamARate1,
@@ -334,7 +376,7 @@ class LiveLineJdModel {
       this.lambiA,
       this.lambiB});
 
-  LiveLineJdModel.fromJson(Map<String, dynamic> json) {
+  Jsondata.fromJson(Map<String, dynamic> json) {
     batsman = json['batsman'];
     batsmanimage = json['batsmanimage'];
     appversion = json['appversion'];
@@ -360,6 +402,7 @@ class LiveLineJdModel {
     teamABanner = json['TeamABanner'];
     teamBBanner = json['TeamBBanner'];
     imgurl = json['imgurl'];
+    admsg = json['admsg'];
     matchtype = json['matchtype'];
     testTeamA = json['TestTeamA'];
     testTeamARate1 = json['TestTeamARate1'];
@@ -452,6 +495,7 @@ class LiveLineJdModel {
     data['TeamABanner'] = this.teamABanner;
     data['TeamBBanner'] = this.teamBBanner;
     data['imgurl'] = this.imgurl;
+    data['admsg'] = this.admsg;
     data['matchtype'] = this.matchtype;
     data['TestTeamA'] = this.testTeamA;
     data['TestTeamARate1'] = this.testTeamARate1;
