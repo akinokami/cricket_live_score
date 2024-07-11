@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/utils/app_theme.dart';
@@ -7,12 +8,11 @@ import '../../../controller/news_controller.dart';
 import '../../widgets/custom_text.dart';
 
 class NewsScreen extends StatelessWidget {
-  const NewsScreen({super.key});
+  NewsScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final newsController = Get.put(NewsController());
-
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppTheme.mainColor,
@@ -268,23 +268,37 @@ class NewsScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: Image.network(
-                                      fit: BoxFit.cover,
-                                      newsController
-                                              .newsList[index].urlToImage ??
-                                          'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.45, errorBuilder:
-                                          (context, error, stackTrace) {
-                                    return Image.network(
-                                      "https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg",
-                                      fit: BoxFit.fill,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.45,
-                                    );
-                                  }),
+                                  child: CachedNetworkImage(
+                                    repeat: ImageRepeat.repeat,
+                                    useOldImageOnUrlChange: true,
+                                    height: MediaQuery.of(context).size.height *
+                                        0.45,
+                                    fit: BoxFit.cover,
+                                    imageUrl: newsController
+                                            .newsList[index].urlToImage ??
+                                        'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+                                    placeholder: (context, url) => Center(
+                                        child: CircularProgressIndicator()),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                  ),
+                                  // Image.network(
+                                  //     fit: BoxFit.cover,
+                                  //     newsController
+                                  //             .newsList[index].urlToImage ??
+                                  //         'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+                                  //     height:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.45, errorBuilder:
+                                  //         (context, error, stackTrace) {
+                                  //   return Image.network(
+                                  //     "https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg",
+                                  //     fit: BoxFit.fill,
+                                  //     height:
+                                  //         MediaQuery.of(context).size.height *
+                                  //             0.45,
+                                  //   );
+                                  // }),
                                 ),
                               ),
                               Positioned(

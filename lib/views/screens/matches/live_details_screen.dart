@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/live_detail_controller.dart';
@@ -205,10 +206,21 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                       ),
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                            "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamABanner ?? ''}",
-                                            width: 50,
-                                            height: 50),
+                                        child: CachedNetworkImage(
+                                          width: 50,
+                                          height: 50,
+                                          imageUrl:
+                                              "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamABanner ?? ''}",
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
+                                        ),
+                                        // Image.network(
+                                        //     "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamABanner ?? ''}",
+                                        //     width: 50,
+                                        //     height: 50),
                                       ),
                                     ],
                                   ),
@@ -216,11 +228,22 @@ class _LiveDetailsScreenState extends State<LiveDetailsScreen> {
                                     children: [
                                       ClipRRect(
                                         borderRadius: BorderRadius.circular(10),
-                                        child: Image.network(
-                                          "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamBBanner ?? ''}",
+                                        child: CachedNetworkImage(
                                           width: 50,
                                           height: 50,
+                                          imageUrl:
+                                              "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamBBanner ?? ''}",
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         ),
+                                        // Image.network(
+                                        //   "${liveDetailController.liveLineList[0].jsondata?.jsondata?.imgurl ?? ''}${liveDetailController.liveLineList[0].jsondata?.jsondata?.teamBBanner ?? ''}",
+                                        //   width: 50,
+                                        //   height: 50,
+                                        // ),
                                       ),
                                       SizedBox(
                                         width: 10,

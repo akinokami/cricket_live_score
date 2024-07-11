@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:live_score/models/news_model.dart';
 import 'package:live_score/utils/app_theme.dart';
@@ -27,20 +28,30 @@ class NewsDetailScreen extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                  newsModel?.urlToImage ??
-                      'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                  errorBuilder: (context, error, stackTrace) {
-                return Image.network(
-                  "https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg",
-                  fit: BoxFit.fill,
-                  width: double.infinity,
-                  height: MediaQuery.of(context).size.width * 0.6,
-                );
-              }),
+              child: CachedNetworkImage(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.width * 0.6,
+                fit: BoxFit.cover,
+                imageUrl: newsModel?.urlToImage ??
+                    'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+                placeholder: (context, url) =>
+                    Center(child: CircularProgressIndicator()),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
+              // Image.network(
+              //     newsModel?.urlToImage ??
+              //         'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+              //     fit: BoxFit.fill,
+              //     width: double.infinity,
+              //     height: MediaQuery.of(context).size.width * 0.6,
+              //     errorBuilder: (context, error, stackTrace) {
+              //   return Image.network(
+              //     "https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg",
+              //     fit: BoxFit.fill,
+              //     width: double.infinity,
+              //     height: MediaQuery.of(context).size.width * 0.6,
+              //   );
+              // }),
             ),
             const SizedBox(
               height: 20,

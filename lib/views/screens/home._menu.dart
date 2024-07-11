@@ -92,7 +92,7 @@ class Home extends StatelessWidget {
       bottomNavigationBar: buildBottomNavigationMenu(context, homeController),
       body: Obx(() => IndexedStack(
             index: homeController.tabIndex.value,
-            children: const [
+            children: [
               NewsScreen(),
               MatchesScreen(),
               UpcomingScreen(),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:live_score/models/live_match_model.dart';
@@ -52,11 +53,21 @@ class LiveCardWidget extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            "${liveMatchModel?.imgeURL}${liveMatchModel?.teamAImage}",
+                          child: CachedNetworkImage(
                             width: 30,
                             height: 30,
+                            imageUrl:
+                                "${liveMatchModel?.imgeURL}${liveMatchModel?.teamAImage}",
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
+                          // Image.network(
+                          //   "${liveMatchModel?.imgeURL}${liveMatchModel?.teamAImage}",
+                          //   width: 30,
+                          //   height: 30,
+                          // ),
                         ),
                         Opacity(
                           opacity: 0.5,
@@ -85,11 +96,21 @@ class LiveCardWidget extends StatelessWidget {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            "${liveMatchModel?.imgeURL}${liveMatchModel?.teamBImage}",
+                          child: CachedNetworkImage(
                             width: 30,
                             height: 30,
+                            imageUrl:
+                                "${liveMatchModel?.imgeURL}${liveMatchModel?.teamBImage}",
+                            placeholder: (context, url) =>
+                                Center(child: CircularProgressIndicator()),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
                           ),
+                          // Image.network(
+                          //   "${liveMatchModel?.imgeURL}${liveMatchModel?.teamBImage}",
+                          //   width: 30,
+                          //   height: 30,
+                          // ),
                         ),
                         Opacity(
                           opacity: 0.5,
