@@ -40,60 +40,60 @@ class _NewsScreenState extends State<NewsScreen> {
                     text: 'Privacy Policy',
                     fontWeight: FontWeight.w500,
                   ),
-                  content: Column(
-                    children: [
-                      Container(
-                        height: MediaQuery.of(context).size.height * 0.70,
-                        child: SingleChildScrollView(
-                            child: Text(Global.policy,
-                                style: TextStyle(fontSize: 12))),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Checkbox(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(6)),
-                            activeColor: Colors.green,
-                            side: WidgetStateBorderSide.resolveWith(
-                              (states) => BorderSide(
-                                width: 1.5,
-                                color: isChecked ? Colors.green : Colors.black,
+                  content: Container(
+                    height: MediaQuery.of(context).size.height * 0.70,
+                    child: SingleChildScrollView(
+                        child: Column(
+                      children: [
+                        Text(Global.policy, style: TextStyle(fontSize: 12)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Checkbox(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(6)),
+                              activeColor: Colors.green,
+                              side: WidgetStateBorderSide.resolveWith(
+                                (states) => BorderSide(
+                                  width: 1.5,
+                                  color:
+                                      isChecked ? Colors.green : Colors.black,
+                                ),
                               ),
+                              value: isChecked,
+                              onChanged: (bool? value) {
+                                setState(() {
+                                  isChecked = value!;
+                                  if (isChecked) {
+                                    isAccepted = true;
+                                  } else {
+                                    isAccepted = false;
+                                  }
+                                });
+                              },
                             ),
-                            value: isChecked,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                isChecked = value!;
-                                if (isChecked) {
-                                  isAccepted = true;
-                                } else {
-                                  isAccepted = false;
-                                }
-                              });
-                            },
-                          ),
-                          CustomText(
-                            text: 'I have read and agree to the Privacy Policy',
-                            size: 12,
-                          )
-                        ],
-                      ),
-                      ElevatedButton(
-                        child: CustomText(
-                          text: 'Accept',
-                          size: 14,
-                          textColor: Colors.white,
+                            CustomText(
+                              text: 'I agreed to the Privacy Policy.',
+                              size: 12,
+                            )
+                          ],
                         ),
-                        onPressed: isAccepted
-                            ? () {
-                                final box = GetStorage();
-                                box.write('first', 'notfirst');
-                                Navigator.pop(context);
-                              }
-                            : null,
-                      ),
-                    ],
+                        ElevatedButton(
+                          child: CustomText(
+                            text: 'Accept',
+                            size: 14,
+                            textColor: Colors.white,
+                          ),
+                          onPressed: isAccepted
+                              ? () {
+                                  final box = GetStorage();
+                                  box.write('first', 'notfirst');
+                                  Navigator.pop(context);
+                                }
+                              : null,
+                        ),
+                      ],
+                    )),
                   ),
                 );
               },
