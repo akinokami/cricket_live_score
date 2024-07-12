@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final box = GetStorage();
-    String first = box.read('first') ?? '';
+    // final box = GetStorage();
+    // String first = box.read('first') ?? '';
     return GetMaterialApp(
       title: 'Live Score',
       theme: ThemeData(
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: first.isNotEmpty ? Home() : PrivacyPolicyScreen(),
+      home: Home(), //: PrivacyPolicyScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

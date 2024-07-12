@@ -1,10 +1,12 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:live_score/models/news_model.dart';
 import 'package:live_score/services/api_repo.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/utils/constants.dart';
+import 'package:live_score/views/screens/privacy_policy/policy_dialog.dart';
 
 class NewsController extends GetxController {
   final isLoading = false.obs;
@@ -14,8 +16,13 @@ class NewsController extends GetxController {
 
   @override
   void onInit() async {
-    super.onInit();
+    // final box = GetStorage();
+    // first.value = box.read('first') ?? '';
+    // // if (first.value == '') {
+    // //   PolicyDialog().showPolicyDialog();
+    // // }
     await getNewsList();
+    super.onInit();
   }
 
   @override

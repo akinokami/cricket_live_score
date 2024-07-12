@@ -1,18 +1,113 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:live_score/utils/app_theme.dart';
+import 'package:live_score/utils/global.dart';
 import 'package:live_score/views/screens/news/news_detail_screen.dart';
 
 import '../../../controller/news_controller.dart';
 import '../../widgets/custom_text.dart';
 
-class NewsScreen extends StatelessWidget {
+class NewsScreen extends StatefulWidget {
   NewsScreen({super.key});
+
+  @override
+  State<NewsScreen> createState() => _NewsScreenState();
+}
+
+class _NewsScreenState extends State<NewsScreen> {
+  bool isAccepted = false;
+  bool isChecked = false;
+  String first = '';
+
+  @override
+  void initState() {
+    super.initState();
+    final box = GetStorage();
+    first = box.read('first') ?? '';
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      if (first == '') {
+        return showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (ctx) => Builder(builder: (context) {
+            return StatefulBuilder(
+              builder: (context, StateSetter setState) {
+                return AlertDialog(
+                  title: CustomText(
+                    text: 'Privacy Policy',
+                    fontWeight: FontWeight.w500,
+                  ),
+                  content: Column(
+                    children: [
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.70,
+                        child: SingleChildScrollView(
+                            child: Text(Global.policy,
+                                style: TextStyle(fontSize: 12))),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Checkbox(
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(6)),
+                            activeColor: Colors.green,
+                            side: WidgetStateBorderSide.resolveWith(
+                              (states) => BorderSide(
+                                width: 1.5,
+                                color: isChecked ? Colors.green : Colors.black,
+                              ),
+                            ),
+                            value: isChecked,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                isChecked = value!;
+                                if (isChecked) {
+                                  isAccepted = true;
+                                } else {
+                                  isAccepted = false;
+                                }
+                              });
+                            },
+                          ),
+                          CustomText(
+                            text: 'I have read and agree to the Privacy Policy',
+                            size: 12,
+                          )
+                        ],
+                      ),
+                      ElevatedButton(
+                        child: CustomText(
+                          text: 'Accept',
+                          size: 14,
+                          textColor: Colors.white,
+                        ),
+                        onPressed: isAccepted
+                            ? () {
+                                final box = GetStorage();
+                                box.write('first', 'notfirst');
+                                Navigator.pop(context);
+                              }
+                            : null,
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          }),
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     final newsController = Get.put(NewsController());
+
     return Scaffold(
         appBar: AppBar(
           backgroundColor: AppTheme.mainColor,
