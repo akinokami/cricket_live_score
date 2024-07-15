@@ -20,7 +20,7 @@ class Home extends StatelessWidget {
   buildBottomNavigationMenu(context, landingPageController) {
     return Obx(() => MediaQuery(
         data: MediaQuery.of(context)
-            .copyWith(textScaler: const TextScaler.linear(1.0)),
+            .copyWith(textScaleFactor: 1.0),
         child: SizedBox(
           height: 60,
           child: BottomNavigationBar(

@@ -53,13 +53,12 @@ class _NewsScreenState extends State<NewsScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(6)),
                               activeColor: Colors.green,
-                              side: WidgetStateBorderSide.resolveWith(
-                                (states) => BorderSide(
+                              side:  BorderSide(
                                   width: 1.5,
                                   color:
                                       isChecked ? Colors.green : Colors.black,
                                 ),
-                              ),
+
                               value: isChecked,
                               onChanged: (bool? value) {
                                 setState(() {
