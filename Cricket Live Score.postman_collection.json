@@ -1,0 +1,278 @@
+{
+	"info": {
+		"_postman_id": "aeb80f46-0ba3-4434-8bc4-50aa49fc0c51",
+		"name": "Cricket Live Score",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36781508"
+	},
+	"item": [
+		{
+			"name": "MatchResults",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"1\",\n    \"end\": \"15\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/MatchResults",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"MatchResults"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpcomingMatch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/upcomingMatches",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"upcomingMatches"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Score Card",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"MatchId\": \"12469\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/GetAllPlayers",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"GetAllPlayers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MatchOdd",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"MatchId\": \"12469\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/MatchOdds",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"MatchOdds"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Status",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"MatchId\": \"12440\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/MatchStats",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"MatchStats"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OverviewMatch",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"start\": \"1\",\n    \"end\": \"10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/MatchResults",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"MatchResults"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LiveMatch",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/LiveLine",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"LiveLine"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "News",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://newsapi.org/v2/everything?q=cricket%20AND%20sport&apiKey=612cc976bd1849b1bbd0ff10a55d5b11",
+					"protocol": "https",
+					"host": [
+						"newsapi",
+						"org"
+					],
+					"path": [
+						"v2",
+						"everything"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "cricket%20AND%20sport"
+						},
+						{
+							"key": "apiKey",
+							"value": "612cc976bd1849b1bbd0ff10a55d5b11"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LiveLine_Match",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"MatchId\": \"12445\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://cricpro.cricnet.co.in/api/values/LiveLine_Match",
+					"protocol": "http",
+					"host": [
+						"cricpro",
+						"cricnet",
+						"co",
+						"in"
+					],
+					"path": [
+						"api",
+						"values",
+						"LiveLine_Match"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
