@@ -39,7 +39,11 @@ class NewsController extends GetxController {
     isLoading.value = true;
     try {
       final result = await ApiRepo().getNewsList();
-      newsList.value = result;
+      if (result.isNotEmpty) {
+        newsList.value =
+            result.where((element) => (element.title != '[Removed]')|| !((element.description??"").contains("…"))).toList();
+
+      }
     } catch (e) {
       isLoading.value = false;
       constants.showSnackBar(

@@ -25,6 +25,7 @@ class NewsDetailScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(10),
@@ -33,10 +34,10 @@ class NewsDetailScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.6,
                 fit: BoxFit.cover,
                 imageUrl: newsModel?.urlToImage ??
-                    'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
+                    'https://static.toiimg.com/thumb/msid-96657340,width-1070,height-580,imgsize-53200,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg',
                 placeholder: (context, url) =>
                     Center(child: CircularProgressIndicator()),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                errorWidget: (context, url, error) => Image.asset("assets/cricket.webp"),
               ),
               // Image.network(
               //     newsModel?.urlToImage ??
