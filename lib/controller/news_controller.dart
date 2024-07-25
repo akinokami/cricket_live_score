@@ -22,6 +22,7 @@ class NewsController extends GetxController {
     // //   PolicyDialog().showPolicyDialog();
     // // }
     await getNewsList();
+    newsList.removeWhere((element) => (element.description??"").contains("…"));
     super.onInit();
   }
 
@@ -41,7 +42,7 @@ class NewsController extends GetxController {
       final result = await ApiRepo().getNewsList();
       if (result.isNotEmpty) {
         newsList.value =
-            result.where((element) => (element.title != '[Removed]')|| !((element.description??"").contains("…"))).toList();
+            result.where((element) => (element.title != '[Removed]')).toList();
 
       }
     } catch (e) {

@@ -352,11 +352,13 @@ class _NewsScreenState extends State<NewsScreen> {
                         padding: EdgeInsets.all(8.0),
                         itemCount: newsController.newsList.length,
                         itemBuilder: (context, index) {
+
                           return InkWell(
                             onTap: () => Get.to(() => NewsDetailScreen(
                                   newsModel: newsController.newsList[index],
                                 )),
-                            child: Stack(children: [
+                            child:
+                            Stack(children: [
                               Material(
                                 elevation: 2,
                                 borderRadius: BorderRadius.circular(10),
