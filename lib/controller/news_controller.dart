@@ -24,6 +24,7 @@ class NewsController extends GetxController {
     await getNewsList();
     newsList.removeWhere((element) => (element.description??"").contains("…"));
     newsList.removeWhere((element) => (element.title??"").contains("Ilija Trojanow und Klaus Zeyringers Buch „Fans“"));
+    newsList.removeWhere((element) => (element.urlToImage??"").startsWith("https://d.ibtimes.com/"));
     super.onInit();
   }
 
