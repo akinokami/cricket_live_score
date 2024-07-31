@@ -1,4 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -364,37 +365,50 @@ class _NewsScreenState extends State<NewsScreen> {
                                 borderRadius: BorderRadius.circular(10),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(10),
-                                  child: CachedNetworkImage(
-                                    repeat: ImageRepeat.repeat,
-                                    useOldImageOnUrlChange: true,
+                                  child:
+                                  FastCachedImage(
                                     height: MediaQuery.of(context).size.height *
                                         0.45,
+                                    url: newsController
+                                               .newsList[index].urlToImage??"https://static.toiimg.com/thumb/msid-96657340,width-1070,height-580,imgsize-53200,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
                                     fit: BoxFit.cover,
-                                    imageUrl: newsController
-                                            .newsList[index].urlToImage ??
-                                        'https://static.toiimg.com/thumb/msid-96657340,width-1070,height-580,imgsize-53200,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg',
-                                    placeholder: (context, url) => Center(
-                                        child: CircularProgressIndicator()),
-                                    errorWidget: (context, url, error) =>
-                                        Image.asset("assets/cricket.webp"),
+                                    fadeInDuration: const Duration(seconds: 1),
+                                    errorBuilder: (context, exception, stacktrace) {
+                                      return Image.asset("assets/cricket.webp",fit: BoxFit.cover, height: MediaQuery.of(context).size.height *
+                                          0.45,);
+                                    },
+
+                                    loadingBuilder: (context, progress) {
+                                      debugPrint(
+                                          'Progress: ${progress.isDownloading} ${progress.downloadedBytes} / ${progress.totalBytes}');
+                                      return Container(
+                                        height: MediaQuery.of(context).size.width * 0.6,
+
+                                         color: AppTheme.mainColor,
+                                        child: Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            if (progress.isDownloading && progress.totalBytes != null)
+                                              Text(
+                                                  '${progress.downloadedBytes ~/ 1024} / ${progress.totalBytes! ~/ 1024} kb',
+                                                  style: const TextStyle(color: Colors.red)),
+                                            Center(
+                                              child: SizedBox(
+                                                  width: 10,
+                                                  height: 10,
+                                                  child: CircularProgressIndicator(
+                                                      color: Colors.white,
+                                                      value: progress.progressPercentage.value)),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                      // return Center(
+                                      //   child: CircularProgressIndicator(),
+                                      // );
+                                    },
                                   ),
-                                  // Image.network(
-                                  //     fit: BoxFit.cover,
-                                  //     newsController
-                                  //             .newsList[index].urlToImage ??
-                                  //         'https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg',
-                                  //     height:
-                                  //         MediaQuery.of(context).size.height *
-                                  //             0.45, errorBuilder:
-                                  //         (context, error, stackTrace) {
-                                  //   return Image.network(
-                                  //     "https://t4.ftcdn.net/jpg/04/75/01/23/360_F_475012363_aNqXx8CrsoTfJP5KCf1rERd6G50K0hXw.jpg",
-                                  //     fit: BoxFit.fill,
-                                  //     height:
-                                  //         MediaQuery.of(context).size.height *
-                                  //             0.45,
-                                  //   );
-                                  // }),
+
                                 ),
                               ),
                               Positioned(

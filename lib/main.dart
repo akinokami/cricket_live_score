@@ -1,3 +1,4 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -6,6 +7,9 @@ import 'package:live_score/views/screens/home._menu.dart';
 import 'package:live_score/views/screens/privacy_policy/privacy_policy_screen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 3), );
   await GetStorage.init();
   runApp(const MyApp());
 }
