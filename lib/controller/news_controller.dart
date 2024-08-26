@@ -1,12 +1,10 @@
 import 'dart:math';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:live_score/models/news_model.dart';
 import 'package:live_score/services/api_repo.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/utils/constants.dart';
-import 'package:live_score/views/screens/privacy_policy/policy_dialog.dart';
 
 class NewsController extends GetxController {
   final isLoading = false.obs;
@@ -22,9 +20,12 @@ class NewsController extends GetxController {
     // //   PolicyDialog().showPolicyDialog();
     // // }
     await getNewsList();
-    newsList.removeWhere((element) => (element.description??"").contains("…"));
-    newsList.removeWhere((element) => (element.title??"").contains("Ilija Trojanow und Klaus Zeyringers Buch „Fans“"));
-    newsList.removeWhere((element) => (element.urlToImage??"").startsWith("https://d.ibtimes.com/"));
+    newsList
+        .removeWhere((element) => (element.description ?? "").contains("…"));
+    newsList.removeWhere((element) => (element.title ?? "")
+        .contains("Ilija Trojanow und Klaus Zeyringers Buch „Fans“"));
+    newsList.removeWhere((element) =>
+        (element.urlToImage ?? "").startsWith("https://d.ibtimes.com/"));
     super.onInit();
   }
 
@@ -45,7 +46,6 @@ class NewsController extends GetxController {
       if (result.isNotEmpty) {
         newsList.value =
             result.where((element) => (element.title != '[Removed]')).toList();
-
       }
     } catch (e) {
       isLoading.value = false;

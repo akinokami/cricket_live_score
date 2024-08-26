@@ -4,12 +4,13 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/views/screens/home._menu.dart';
-import 'package:live_score/views/screens/privacy_policy/privacy_policy_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 3), );
+  await FastCachedImageConfig.init(
+    clearCacheAfter: const Duration(days: 3),
+  );
   await GetStorage.init();
   runApp(const MyApp());
 }
