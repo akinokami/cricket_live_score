@@ -32,14 +32,14 @@ class NewsDetailScreen extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child:
               FastCachedImage(
-                height: MediaQuery.of(context).size.width * 0.6,
+                height: MediaQuery.of(context).size.width * 0.5,
                 width: double.infinity,
                 url: newsModel?.urlToImage??"https://static.toiimg.com/thumb/msid-96657340,width-1070,height-580,imgsize-53200,resizemode-75,overlay-toi_sw,pt-32,y_pad-40/photo.jpg",
                 fit: BoxFit.cover,
                 fadeInDuration: const Duration(seconds: 1),
                 errorBuilder: (context, exception, stacktrace) {
-                  return Image.asset("assets/cricket.webp",fit: BoxFit.cover, height: MediaQuery.of(context).size.height *
-                      0.6,);
+                  return Image.asset("assets/cricket.webp",fit: BoxFit.cover,width: double.infinity, height: MediaQuery.of(context).size.height *
+                      0.25,);
                 },
                 loadingBuilder: (context, progress) {
                   debugPrint(
