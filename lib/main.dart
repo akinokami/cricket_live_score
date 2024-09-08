@@ -1,9 +1,11 @@
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:live_score/utils/app_theme.dart';
 import 'package:live_score/views/screens/home._menu.dart';
+import 'package:live_score/views/screens/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,20 +22,26 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final box = GetStorage();
-    // String first = box.read('first') ?? '';
-    return GetMaterialApp(
-      title: 'Live Score',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        elevatedButtonTheme: ElevatedButtonThemeData(
-          style: ElevatedButton.styleFrom(
-            backgroundColor: AppTheme.mainColor,
+    return ScreenUtilInit(
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return GetMaterialApp(
+          title: 'Live Score',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppTheme.mainColor,
+              ),
+            ),
           ),
-        ),
-      ),
-      home: Home(), //: PrivacyPolicyScreen(),
-      debugShowCheckedModeBanner: false,
+          home: SplashScreen(), //: PrivacyPolicyScreen(),
+          debugShowCheckedModeBanner: false,
+        );
+      },
     );
+
   }
 }

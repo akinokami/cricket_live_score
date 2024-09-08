@@ -37,4 +37,5 @@ class AppTheme {
   static const iconBlack = Color(0xFF000000);
   static const iconGrey = Color(0xFFB6B6B6);
   static const mainColor = Color.fromRGBO(36, 54, 101, 1.0);
+  static const closeIconColor = Color(0xFF1296db);
 }

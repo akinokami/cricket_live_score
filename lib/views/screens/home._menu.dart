@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:live_score/controller/home_controller.dart';
 import 'package:live_score/views/screens/matches/matches_screen.dart';
@@ -22,62 +23,80 @@ class Home extends StatelessWidget {
         data: MediaQuery.of(context)
             .copyWith(textScaleFactor: 1.0),
         child: SizedBox(
-          height: 60,
-          child: BottomNavigationBar(
-            showUnselectedLabels: true,
-            showSelectedLabels: true,
-            onTap: landingPageController.changeTabIndex,
-            currentIndex: landingPageController.tabIndex.value,
-            backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
-            unselectedItemColor: Colors.white.withOpacity(0.5),
-            selectedItemColor: Colors.white,
-            unselectedLabelStyle: unselectedLabelStyle,
-            selectedLabelStyle: selectedLabelStyle,
-            items: [
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: const EdgeInsets.only(bottom: 7),
-                  child: const Icon(
-                    Icons.newspaper_outlined,
-                    size: 20.0,
-                  ),
+          height:landingPageController.isShow.value? 120.h:65.h,
+          child: Column(
+            children: [
+              Padding(
+                padding:  EdgeInsets.all(8.w),
+                child: GestureDetector(
+                  onTap: (){
+                    print("Banner Clicked");
+
+                  },
+                  child: Image.asset("assets/banner1.webp",
+                      width: double.infinity,
+                      height: landingPageController.isShow.value? 47.h:0,
+                      fit: BoxFit.fill),
                 ),
-                label: 'News',
-                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
               ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: const EdgeInsets.only(bottom: 7),
-                  child: const Icon(
-                    Icons.view_timeline_outlined,
-                    size: 20.0,
+              BottomNavigationBar(
+                showUnselectedLabels: true,
+                showSelectedLabels: true,
+                onTap: landingPageController.changeTabIndex,
+                currentIndex: landingPageController.tabIndex.value,
+                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
+                unselectedItemColor: Colors.white.withOpacity(0.5),
+                selectedItemColor: Colors.white,
+                unselectedLabelStyle: unselectedLabelStyle,
+                selectedLabelStyle: selectedLabelStyle,
+                items: [
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.newspaper_outlined,
+                        size: 20.0,
+                      ),
+                    ),
+                    label: 'News',
+                    backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
                   ),
-                ),
-                label: 'Matches',
-                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: const EdgeInsets.only(bottom: 7),
-                  child: const Icon(
-                    Icons.calendar_month_outlined,
-                    size: 20.0,
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.view_timeline_outlined,
+                        size: 20.0,
+                      ),
+                    ),
+                    label: 'Matches',
+                    backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
                   ),
-                ),
-                label: 'Upcoming',
-                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  margin: const EdgeInsets.only(bottom: 7),
-                  child: const Icon(
-                    Icons.history,
-                    size: 20.0,
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.calendar_month_outlined,
+                        size: 20.0,
+                      ),
+                    ),
+                    label: 'Upcoming',
+                    backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
                   ),
-                ),
-                label: 'Results',
-                backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
+                  BottomNavigationBarItem(
+                    icon: Container(
+                      margin: const EdgeInsets.only(bottom: 7),
+                      child: const Icon(
+                        Icons.history,
+                        size: 20.0,
+                      ),
+                    ),
+                    label: 'Results',
+                    backgroundColor: const Color.fromRGBO(36, 54, 101, 1.0),
+                  ),
+                ],
               ),
+
             ],
           ),
         )));
@@ -91,6 +110,7 @@ class Home extends StatelessWidget {
         child: Scaffold(
       bottomNavigationBar: buildBottomNavigationMenu(context, homeController),
       body: Obx(() => IndexedStack(
+
             index: homeController.tabIndex.value,
             children: [
               NewsScreen(),
